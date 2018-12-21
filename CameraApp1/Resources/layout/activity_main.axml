@@ -1,51 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-	<ImageView
-		android:src="@android:drawable/ic_menu_gallery"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_centerInParent="false"
-		android:id="@+id/imageView1"
-		android:layout_marginTop="5dp"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"
-		android:maxHeight="120dp"
-		android:minHeight="120dp" 
-		 />
-	<EditText
+
+	<FrameLayout
+		android:id="@+id/fragment_placeholder"
 		android:layout_width="match_parent"
-		android:layout_height="200dp"
-		android:gravity="center"
-		android:hint="Kirjoita tai puhu selite kuvalle"
-		android:id="@+id/captionText"
-		android:inputType="textMultiLine"
-		android:isScrollContainer="true"
-		android:maxHeight="120dp"
-		android:layout_alignParentBottom="true"
-		/>
-
-
-
-	<android.support.design.widget.BottomNavigationView
-		android:id="@+id/navigation"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="0dp"
-		android:layout_marginStart="0dp"
-		android:background="?android:attr/windowBackground"
-		android:layout_alignParentBottom="true"
-		app:menu="@menu/navigation"
-		android:minWidth="25px"
-		android:minHeight="25px">
-
-
+		android:layout_height="match_parent">
 		
-	</android.support.design.widget.BottomNavigationView>
+	
+	</FrameLayout>
 
 
-</RelativeLayout>
+
+
+</LinearLayout>

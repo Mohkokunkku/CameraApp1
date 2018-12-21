@@ -27,18 +27,27 @@ namespace CameraApp1
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
             llMain = FindViewById<RelativeLayout>(Resource.Id.container);
-            
-            editText = FindViewById<EditText>(Resource.Id.captionText);
-            textMessage = FindViewById<TextView>(Resource.Id.message);
+
+            //editText = FindViewById<EditText>(Resource.Id.captionText);
+            //textMessage = FindViewById<TextView>(Resource.Id.message);
             //var btnCamera = FindViewById<Button>(Resource.Id.btnCamera);
-            imageView = FindViewById<ImageView>(Resource.Id.imageView1);
-            BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
-            navigation.SetOnNavigationItemSelectedListener(this);
+            //imageView = FindViewById<ImageView>(Resource.Id.imageView1);
+            //BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
+            //navigation.SetOnNavigationItemSelectedListener(this);
 
             //btnCamera.Click += btnCamera_Click;
-            imageView.Click += viewCamera_Click;
+            //imageView.Click += viewCamera_Click;
+            //if (savedInstanceState == null)
+            //{
+            //    Fragment fragment = 
+            //}
 
-
+            Android.App.FragmentTransaction fragmentTx = this.FragmentManager.BeginTransaction();
+           // DetailsFragment aDifferentDetailsFrag = 
+           //Fragment firstpage = Resource.Layout.FirstPage
+           //21.12.2018 jäi nyt tilanteeseen että pitäis declarata MainPagesta instanssi ja laittaa trasaction parametriksi
+           //ideana saada tämä pätkä julkaisemaan MainPageFragment --> FirstPage.axml on vastinparina
+           fragmentTx.Add(MainPage,  )
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -73,10 +82,10 @@ namespace CameraApp1
                    // textMessage.SetText(Resource.String.title_home);
                     return true;
                 case Resource.Id.navigation_dashboard:
-                    Android.App.Fragment testFragment = new Test();
+               //     Android.App.Fragment testFragment = new Test();
                     var fm = FragmentManager;
                     Android.App.FragmentTransaction ft = fm.BeginTransaction();
-                    ft.Add(Resource.LtestFragment);
+                 //   ft.Add(Resource.LtestFragment);
               
                     //textMessage.SetText(Resource.String.title_dashboard);
                     return true;
