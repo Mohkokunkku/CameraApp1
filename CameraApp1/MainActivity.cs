@@ -18,15 +18,25 @@ namespace CameraApp1
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
-        TextView textMessage;
-        ImageView imageView;
-        RelativeLayout llMain;
-        EditText editText;
+       // TextView textMessage;
+       // ImageView imageView;
+        LinearLayout llMain;
+        //EditText editText;
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
-            llMain = FindViewById<RelativeLayout>(Resource.Id.container);
+            try
+            {
+            
+                    base.OnCreate(savedInstanceState);
+                    SetContentView(Resource.Layout.activity_main);
+                    llMain = FindViewById<LinearLayout>(Resource.Id.container); 
+              
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
 
             //editText = FindViewById<EditText>(Resource.Id.captionText);
             //textMessage = FindViewById<TextView>(Resource.Id.message);
@@ -43,36 +53,41 @@ namespace CameraApp1
             //}
 
             Android.App.FragmentTransaction fragmentTx = this.FragmentManager.BeginTransaction();
-           // DetailsFragment aDifferentDetailsFrag = 
-           //Fragment firstpage = Resource.Layout.FirstPage
-           //21.12.2018 jäi nyt tilanteeseen että pitäis declarata MainPagesta instanssi ja laittaa trasaction parametriksi
-           //ideana saada tämä pätkä julkaisemaan MainPageFragment --> FirstPage.axml on vastinparina
-           fragmentTx.Add(MainPage,  )
+            // DetailsFragment aDifferentDetailsFrag = 
+            //Fragment firstpage = Resource.Layout.FirstPage
+            //21.12.2018 jäi nyt tilanteeseen että pitäis declarata MainPagesta instanssi ja laittaa trasaction parametriksi
+            //ideana saada tämä pätkä julkaisemaan MainPageFragment --> FirstPage.axml on vastinparina
+            MainPageFragment mainPageFragment = new MainPageFragment();
+
+            fragmentTx.Add(Resource.Id.fragment_placeholder, mainPageFragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
 
-        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
-        {
-            try
-            {
-                base.OnActivityResult(requestCode, resultCode, data);
-                if (data.Extras.IsEmpty == false) //antaa ekalla käynnistyksellä emulaattorissa jonkin kyselyn mutta toimii myöhemmin ihan normaalisti 
-                {
-                    Bitmap bitmap = (Bitmap)data.Extras.Get("data");
-                    imageView.SetImageBitmap(bitmap);
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
+        //protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        //{
+        //    //try
+        //    //{
+        //    //    //oikeastaanhan imageviewin pitäisi olla framentissä eikä tässä?
+        //    //    base.OnActivityResult(requestCode, resultCode, data);
+        //    //    if (data.Extras.IsEmpty == false) //antaa ekalla käynnistyksellä emulaattorissa jonkin kyselyn mutta toimii myöhemmin ihan normaalisti 
+        //    //    {
+        //    //        Bitmap bitmap = (Bitmap)data.Extras.Get("data");
+        //    //        imageView.SetImageBitmap(bitmap);
+        //    //    }
+        //    //}
+        //    //catch(Exception ex)
+        //    //{
+        //    //    Console.WriteLine(ex);
+        //    //}
+        //}
 
-        private void viewCamera_Click(object sender, EventArgs e)
-        {
-            //Intent intent = new Intent("ACTION_IMAGE_CAPTURE");
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            StartActivityForResult(intent, 0);
-        }
+        //private void viewCamera_Click(object sender, EventArgs e)
+        //{
+        //    //Intent intent = new Intent("ACTION_IMAGE_CAPTURE");
+        //    Intent intent = new Intent(MediaStore.ActionImageCapture);
+        //    StartActivityForResult(intent, 0);
+        //}
 
         public bool OnNavigationItemSelected(IMenuItem item)
         {
