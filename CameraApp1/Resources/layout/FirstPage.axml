@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 	>
-
+	<ImageButton
+		android:layout_width="65dp"
+		android:layout_height="65dp"
+		android:id="@+id/btnAddToProject"
+		android:layout_gravity="top|right"
+		android:scaleType="fitXY"
+		android:src="@drawable/addicon"
+		android:background="@android:color/transparent"
+		/>
 		<ImageView
 		android:src="@android:drawable/ic_menu_gallery"
 		android:layout_width="match_parent"
@@ -29,5 +37,7 @@
 		android:maxHeight="120dp"
 		android:layout_alignParentBottom="true"
 		/>
+
+	
 
 </LinearLayout>

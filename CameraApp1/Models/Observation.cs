@@ -3,13 +3,13 @@ using System;
 //Tämä on yksi kuva-teksti -havainto joka on otettu kentällä
 public class Observation { 
     string observation;
-    Bitmap bitmap;
+    Java.Net.URI imageuri;
     string guid;
 
-    public Observation(string captiontext, Bitmap picture)
+    public Observation(string captiontext, Java.Net.URI uri)
     {
         observation = captiontext;
-        bitmap = picture;
+        imageuri = uri;
 
         Guid id = Guid.NewGuid();
         guid = $"{id}";
