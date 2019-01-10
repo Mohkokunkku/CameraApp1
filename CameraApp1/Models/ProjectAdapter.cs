@@ -36,10 +36,12 @@ namespace CameraApp1.Models
         public override long GetItemId(int position)
         {
             return position;
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         //Tässä tehdään projektilistan rivikohtainen muotoilu, voi myöhemmin hienostella lisää
+        //Jos haluaa tehdä rivimuotoilun xml-tiedostolla niin esimerkki https://developer.xamarin.com/api/type/Android.App.ListFragment/
+        //Jos haluaa laittaa dataa näkyviin tietokannasta https://docs.microsoft.com/en-us/xamarin/android/user-interface/layouts/list-view/
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             if (inflater == null)
@@ -53,7 +55,7 @@ namespace CameraApp1.Models
                 return convertView;
             }
             return convertView;
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }

@@ -34,10 +34,10 @@ namespace CameraApp1
                     llMain = FindViewById<RelativeLayout>(Resource.Id.container);
 
                 var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-                
+                toolbar.SetTitleTextColor(Android.Graphics.Color.White);
                 SetActionBar(toolbar);
                 ActionBar.Title = "VALITSE PROJEKTI";
-
+                CheckCameraPermission();
 
             }
             catch (Exception ex)
@@ -45,20 +45,6 @@ namespace CameraApp1
 
                 Console.WriteLine(ex.Message);
             }
-
-            //editText = FindViewById<EditText>(Resource.Id.captionText);
-            //textMessage = FindViewById<TextView>(Resource.Id.message);
-            //var btnCamera = FindViewById<Button>(Resource.Id.btnCamera);
-            //imageView = FindViewById<ImageView>(Resource.Id.imageView1);
-            //BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
-            //navigation.SetOnNavigationItemSelectedListener(this);
-
-            //btnCamera.Click += btnCamera_Click;
-            //imageView.Click += viewCamera_Click;
-            //if (savedInstanceState == null)
-            //{
-            //    Fragment fragment = 
-            //}
 
             Android.App.FragmentTransaction fragmentTx = this.FragmentManager.BeginTransaction();
             // DetailsFragment aDifferentDetailsFrag = 
@@ -73,31 +59,25 @@ namespace CameraApp1
             fragmentTx.Commit();
         }
 
-        //protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
-        //{
-        //    //try
-        //    //{
-        //    //    //oikeastaanhan imageviewin pitäisi olla framentissä eikä tässä?
-        //    //    base.OnActivityResult(requestCode, resultCode, data);
-        //    //    if (data.Extras.IsEmpty == false) //antaa ekalla käynnistyksellä emulaattorissa jonkin kyselyn mutta toimii myöhemmin ihan normaalisti 
-        //    //    {
-        //    //        Bitmap bitmap = (Bitmap)data.Extras.Get("data");
-        //    //        imageView.SetImageBitmap(bitmap);
-        //    //    }
-        //    //}
-        //    //catch(Exception ex)
-        //    //{
-        //    //    Console.WriteLine(ex);
-        //    //}
-        //}
+        private void CheckCameraPermission()
+        {
+           if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.Camera))
+            {
+                var requiredPermissions = new string[] { Manifest.Permission.Camera };
+                Snackbar.Make(FindViewById(Resource.Id.container), Resource.String.camera_permission_question, Snackbar.LengthIndefinite)
+                    .SetAction(Resource.String.camera_ok, new Action<View>(delegate (View obj)
+                    {
+                        ActivityCompat.RequestPermissions(this, requiredPermissions, 1888);
+                    }
+                    )).Show(); 
+            }
+           else
+            {
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.Camera }, 1888);
+            }
+        }
 
-        //private void viewCamera_Click(object sender, EventArgs e)
-        //{
-        //    //Intent intent = new Intent("ACTION_IMAGE_CAPTURE");
-        //    Intent intent = new Intent(MediaStore.ActionImageCapture);
-        //    StartActivityForResult(intent, 0);
-        //}
-
+        //Tämä taitaa jäädä turhaksi?
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             switch (item.ItemId)

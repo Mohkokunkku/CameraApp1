@@ -13,13 +13,14 @@ using Android.Widget;
 
 namespace CameraApp1.Fragments
 {
-    public class ChooseProjectFragment : ListFragment
+    public class ChooseProjectFragment : ListFragment //Tämä sisältää defaulttina ListViewin joten ei ole tehty erillistä layout-tiedostoa
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            
         }
 
         //voiko olla näin? on kyllä tutoriaalissakin?
@@ -29,14 +30,6 @@ namespace CameraApp1.Fragments
 
             this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, GetProjects());
         }
-        //public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        //{
-        //    // Use this to return your custom view for this Fragment
-        //    //Tämä on ListFragment niin tarviiko tätä viewiä lainkaan? 
-        //    return inflater.Inflate(Resource.Layout.fragment_choose_project, container, false);
-
-        //    //return base.OnCreateView(inflater, container, savedInstanceState);
-        //}
 
         //palautaa kovakoodatun projektilistan testikäyttöä varten
         private JavaList<Project> GetProjects()
@@ -47,9 +40,28 @@ namespace CameraApp1.Fragments
                 new Project("Ruosilankuja 3", "655"),
                 new Project("Kolmaslinja 7", "1008"),
                 new Project("Sipulikatu 14", "871")
-            };
+            };            
+        }
 
-             
+        public override void OnListItemClick(ListView l, View v, int position, long id)
+        {
+            base.OnListItemClick(l, v, position, id);
+            //Tämä tavoittaa listasta valitun projektin
+            Project project = (Project)this.ListAdapter.GetItem(position);
+
+            //Tämä vaihtaa fragmentin --> on vielä ihan testinä vain kuvanotto fragmentti
+            ProjectFragmentOn();
+
+        }
+
+        private void ProjectFragmentOn()
+        {
+            ObservationPageFragment observation = new ObservationPageFragment();
+            FragmentTransaction transaction = this.Activity.FragmentManager.BeginTransaction();
+            transaction.Replace(Resource.Id.fragment_placeholder, observation);
+            transaction.AddToBackStack(null);
+            transaction.Commit();
+
         }
     }
 }

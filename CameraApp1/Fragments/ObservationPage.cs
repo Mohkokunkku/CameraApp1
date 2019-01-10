@@ -17,6 +17,7 @@ using Java.IO;
 using Android.Support.V4.Content;
 using Uri = Android.Net.Uri;
 using Android.Support.Compat;
+using Android;
 
 namespace CameraApp1
 {
@@ -41,7 +42,7 @@ namespace CameraApp1
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            return inflater.Inflate(Resource.Layout.fragment_choose_project, container, false);
+            return inflater.Inflate(Resource.Layout.fragment_observations, container, false);
             //return base.OnCreateView(Resource.Layout.FirstPage, container, savedInstanceState);
         }
 
@@ -54,7 +55,11 @@ namespace CameraApp1
             imageButton.Click += btnAddToProject_Click;
             imageView.Click += viewCamera_Click;
             CreateDirectoryForPictures();
+          
         }
+
+ 
+
         //Lisää havainnon projektille
         private void btnAddToProject_Click(object sender, EventArgs e)
         {
@@ -71,16 +76,25 @@ namespace CameraApp1
 
             try
             {
-                Intent intent = new Intent(MediaStore.ActionImageCapture);
-                _file = new Java.IO.File(_dir, string.Format("Image_{0}.jpg", Guid.NewGuid()));
-                // Android.Net.Uri photouri = FileProvider.GetUriForFile(context, )
-                //Uri photoURI = Uri.FromFile(_file);
+ 
+                    if (ContextCompat.CheckSelfPermission(Application.Context, Manifest.Permission.Camera) == Android.Content.PM.Permission.Granted)
+                    {
+                        Intent intent = new Intent(MediaStore.ActionImageCapture);
+                        _file = new Java.IO.File(_dir, string.Format("Image_{0}.jpg", Guid.NewGuid()));
+                        // Android.Net.Uri photouri = FileProvider.GetUriForFile(context, )
+                        //Uri photoURI = Uri.FromFile(_file);
 
-                Uri photoUri = FileProvider.GetUriForFile(Android.App.Application.Context, "com.mydomain.fileprovider", _file);
-                intent.PutExtra(MediaStore.ExtraOutput, photoUri);
-                CreateNewObservation(photoUri);
-                intent.AddFlags(ActivityFlags.GrantReadUriPermission);
-                StartActivityForResult(intent, 0);
+                        Uri photoUri = FileProvider.GetUriForFile(Android.App.Application.Context, "com.mydomain.fileprovider", _file);
+                        intent.PutExtra(MediaStore.ExtraOutput, photoUri);
+                        CreateNewObservation(photoUri);
+                        intent.AddFlags(ActivityFlags.GrantReadUriPermission);
+                        StartActivityForResult(intent, 0); 
+                    }
+                else
+                {
+                    
+                }
+                
             }
             catch (Exception ex)
             {

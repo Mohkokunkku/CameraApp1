@@ -4,4 +4,6 @@
     <string name="title_dashboard">Uusi</string>
     <string name="title_notifications">Notifications</string>
   <string name="take_a_picture">Ota kuva</string>
+  <string name="camera_permission_question">Salli kameran käyttö ottaaksesi valvontakuvia</string>
+  <string name="camera_ok">OK</string>
 </resources>

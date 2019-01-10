@@ -62,6 +62,7 @@
     <Compile Include="Fragments\ChooseProject.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\ObservationPage.cs" />
+    <Compile Include="Models\MonitoringVisit.cs" />
     <Compile Include="Models\Observation.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectAdapter.cs" />
@@ -109,7 +110,10 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.Compat">
+      <Version>28.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_observations.axml">
@@ -121,11 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment_choose_project.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\toolbar.xml" />
