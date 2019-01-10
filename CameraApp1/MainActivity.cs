@@ -15,22 +15,30 @@ using Android.Views.InputMethods;
 using Android.Widget;
 namespace CameraApp1
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/MyTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
-    {
+    {  //CompatAppActivity
        // TextView textMessage;
        // ImageView imageView;
-        LinearLayout llMain;
+        RelativeLayout llMain;
         //EditText editText;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             try
             {
-            
-                    base.OnCreate(savedInstanceState);
+                //alustaa ToolBarin
+
+
+                base.OnCreate(savedInstanceState);
                     SetContentView(Resource.Layout.activity_main);
-                    llMain = FindViewById<LinearLayout>(Resource.Id.container); 
-              
+                    llMain = FindViewById<RelativeLayout>(Resource.Id.container);
+
+                var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+                
+                SetActionBar(toolbar);
+                ActionBar.Title = "VALITSE PROJEKTI";
+
+
             }
             catch (Exception ex)
             {
@@ -57,7 +65,8 @@ namespace CameraApp1
             //Fragment firstpage = Resource.Layout.FirstPage
             //21.12.2018 jäi nyt tilanteeseen että pitäis declarata MainPagesta instanssi ja laittaa trasaction parametriksi
             //ideana saada tämä pätkä julkaisemaan MainPageFragment --> FirstPage.axml on vastinparina
-            MainPageFragment mainPageFragment = new MainPageFragment();
+            //ObservationPageFragment mainPageFragment = new ObservationPageFragment();
+            Fragments.ChooseProjectFragment mainPageFragment = new Fragments.ChooseProjectFragment();
 
             fragmentTx.Add(Resource.Id.fragment_placeholder, mainPageFragment);
             fragmentTx.AddToBackStack(null);
