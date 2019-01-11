@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Graphics;
 using Android.OS;
 using Android.Provider;
 using Android.Runtime;
@@ -22,6 +23,9 @@ namespace CameraApp1
        // ImageView imageView;
         RelativeLayout llMain;
         //EditText editText;
+       // public LocalDB localDB;
+
+        //public static List<MonitoringVisit> monitoringvisits;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             try
@@ -38,7 +42,7 @@ namespace CameraApp1
                 SetActionBar(toolbar);
                 ActionBar.Title = "VALITSE PROJEKTI";
                 CheckCameraPermission();
-
+                
             }
             catch (Exception ex)
             {

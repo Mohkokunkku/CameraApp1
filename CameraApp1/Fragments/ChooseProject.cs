@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using SQLite;
 
 namespace CameraApp1.Fragments
 {
@@ -28,20 +30,41 @@ namespace CameraApp1.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, GetProjects());
+            string dbPath = Path.Combine(
+        System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+        "database.docstarter");
+
+            try
+            {
+                SQLiteConnection db = new SQLiteConnection(dbPath);
+                db.CreateTable<Project>();
+                db.CreateTable<MonitoringVisit>();
+                //Näillä voi laittaa kovakoodatut projektit SqlLiteen 
+                //db.InsertAll(LocalDB.AddTestProjects());
+                //db.InsertAll(LocalDB.AddTestMonitorings());
+
+                var projectTable = db.Table<Project>();
+                List<Project> projects = projectTable.ToList();
+                //muuta lista javalistaksi 
+                JavaList<Project> javaprojects = new JavaList<Project>();
+
+                foreach (var item in projects)
+                {
+                    javaprojects.Add(item);
+                }
+
+                this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+            }
+
+
+
+            catch (global::System.Exception ex)
+            {
+
+                string error = ex.Message;
+            }
         }
 
-        //palautaa kovakoodatun projektilistan testikäyttöä varten
-        private JavaList<Project> GetProjects()
-        {
-            return new JavaList<Project>()
-            {
-                new Project("Aleksiskiven Katu 50", "345"),
-                new Project("Ruosilankuja 3", "655"),
-                new Project("Kolmaslinja 7", "1008"),
-                new Project("Sipulikatu 14", "871")
-            };            
-        }
 
         public override void OnListItemClick(ListView l, View v, int position, long id)
         {
@@ -50,18 +73,51 @@ namespace CameraApp1.Fragments
             Project project = (Project)this.ListAdapter.GetItem(position);
 
             //Tämä vaihtaa fragmentin --> on vielä ihan testinä vain kuvanotto fragmentti
-            ProjectFragmentOn();
+            VisitFragmentOn(project);
 
         }
 
-        private void ProjectFragmentOn()
+        private void VisitFragmentOn(Project project)
         {
-            ObservationPageFragment observation = new ObservationPageFragment();
+            VisitsFragment visits = new VisitsFragment();
+            Bundle args = new Bundle();
+            args.PutString("case", project.CaseId);
+            visits.Arguments = args;
+            //ois kyllä helppoa käyttää sitä Visits-classia jossa on kaikki käynnit niin ei tarvitsisi passailla listoja tai muuta 
+            //vaan seuraava fragmentti voisi hakea suoraan tietokannasta tavarat ilman datan syöttelyä
+            
             FragmentTransaction transaction = this.Activity.FragmentManager.BeginTransaction();
-            transaction.Replace(Resource.Id.fragment_placeholder, observation);
+            transaction.Replace(Resource.Id.fragment_placeholder, visits);
             transaction.AddToBackStack(null);
             transaction.Commit();
 
         }
     }
 }
+
+//palautaa kovakoodatun projektilistan testikäyttöä varten
+//on korvattu nyt ORM-ratkaisulla
+//private JavaList<Project> GetProjects()
+//{
+
+//    JavaList<Project> projects = new JavaList<Project>()
+//    {
+//        (new Project("Aleksiskiven Katu 50", "345"),
+//        new Project("Ruosilankuja 3", "655"),
+//        new Project("Kolmaslinja 7", "1008"),
+//        new Project("Sipulikatu 14", "871"))}        ;
+
+//    //Lisää kovakoodatun valvontakäyntilistan Aleksiskivenkadun projektiin 
+//    List<MonitoringVisit> visits = new List<MonitoringVisit>()
+//    {
+//        new MonitoringVisit("Viikko 11", "345"),
+//        new MonitoringVisit("Viikko 12", "345"),
+//        new MonitoringVisit("Viikko 13", "345")
+//    };
+
+//    projects.First(s => s.CaseId == "345").Visits = visits;
+
+//    return projects;
+
+
+//}
