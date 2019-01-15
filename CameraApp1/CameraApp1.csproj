@@ -59,7 +59,9 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fragments\AddVisitFragment.cs" />
     <Compile Include="Fragments\ChooseProject.cs" />
+    <Compile Include="Fragments\Observations.cs" />
     <Compile Include="Fragments\Visits.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\ObservationPage.cs" />
@@ -134,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\toolbar.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\project_menu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\outline_add_box_black_18dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

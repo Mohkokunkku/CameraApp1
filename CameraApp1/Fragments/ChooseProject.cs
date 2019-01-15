@@ -8,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -23,6 +24,12 @@ namespace CameraApp1.Fragments
 
             // Create your fragment here
             
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            SetHasOptionsMenu(true);
+            return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
         //voiko olla näin? on kyllä tutoriaalissakin?
@@ -54,6 +61,7 @@ namespace CameraApp1.Fragments
                 }
 
                 this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+                ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.projects_title);
             }
 
 
@@ -87,7 +95,8 @@ namespace CameraApp1.Fragments
             //vaan seuraava fragmentti voisi hakea suoraan tietokannasta tavarat ilman datan syöttelyä
             
             FragmentTransaction transaction = this.Activity.FragmentManager.BeginTransaction();
-            transaction.Replace(Resource.Id.fragment_placeholder, visits);
+            
+            transaction.Replace(Resource.Id.fragment_placeholder, visits, "CaseId");
             transaction.AddToBackStack(null);
             transaction.Commit();
 

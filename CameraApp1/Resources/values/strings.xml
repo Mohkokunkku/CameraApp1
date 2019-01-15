@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">DocStarter</string>
-    <string name="title_home">Viimeiset</string>
+    <string name="title_home">+ KUVA</string>
     <string name="title_dashboard">Uusi</string>
     <string name="title_notifications">Notifications</string>
   <string name="take_a_picture">Ota kuva</string>
   <string name="camera_permission_question">Salli kameran käyttö ottaaksesi valvontakuvia</string>
   <string name="camera_ok">OK</string>
+  <string name="visits_title">VALVONTAKÄYNNIT</string>
+  <string name="projects_title">VALITSE PROJEKTI</string>
+  <string name="cancel">CANCEL</string>
+  
 </resources>

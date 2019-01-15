@@ -2236,26 +2236,26 @@ namespace CameraApp1
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
-			// aapt resource value: 0x7f02006e
-			public const int avd_hide_password_1 = 2130837614;
-			
 			// aapt resource value: 0x7f02006f
-			public const int avd_hide_password_2 = 2130837615;
+			public const int avd_hide_password_1 = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int avd_hide_password_3 = 2130837616;
+			public const int avd_hide_password_2 = 2130837616;
+			
+			// aapt resource value: 0x7f020071
+			public const int avd_hide_password_3 = 2130837617;
 			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
 			
-			// aapt resource value: 0x7f020071
-			public const int avd_show_password_1 = 2130837617;
-			
 			// aapt resource value: 0x7f020072
-			public const int avd_show_password_2 = 2130837618;
+			public const int avd_show_password_1 = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int avd_show_password_3 = 2130837619;
+			public const int avd_show_password_2 = 2130837619;
+			
+			// aapt resource value: 0x7f020074
+			public const int avd_show_password_3 = 2130837620;
 			
 			// aapt resource value: 0x7f020056
 			public const int design_bottom_navigation_item_background = 2130837590;
@@ -2311,11 +2311,11 @@ namespace CameraApp1
 			// aapt resource value: 0x7f020067
 			public const int notification_icon_background = 2130837607;
 			
-			// aapt resource value: 0x7f02006c
-			public const int notification_template_icon_bg = 2130837612;
-			
 			// aapt resource value: 0x7f02006d
-			public const int notification_template_icon_low_bg = 2130837613;
+			public const int notification_template_icon_bg = 2130837613;
+			
+			// aapt resource value: 0x7f02006e
+			public const int notification_template_icon_low_bg = 2130837614;
 			
 			// aapt resource value: 0x7f020068
 			public const int notification_tile_bg = 2130837608;
@@ -2324,10 +2324,13 @@ namespace CameraApp1
 			public const int notify_panel_notification_icon_bg = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int tooltip_frame_dark = 2130837610;
+			public const int outline_add_box_black_18dp = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int tooltip_frame_light = 2130837611;
+			public const int tooltip_frame_dark = 2130837611;
+			
+			// aapt resource value: 0x7f02006c
+			public const int tooltip_frame_light = 2130837612;
 			
 			static Drawable()
 			{
@@ -2425,6 +2428,9 @@ namespace CameraApp1
 			
 			// aapt resource value: 0x7f090027
 			public const int add = 2131296295;
+			
+			// aapt resource value: 0x7f0900b6
+			public const int add_visit = 2131296438;
 			
 			// aapt resource value: 0x7f090070
 			public const int alertTitle = 2131296368;
@@ -2636,17 +2642,11 @@ namespace CameraApp1
 			// aapt resource value: 0x7f090028
 			public const int multiply = 2131296296;
 			
-			// aapt resource value: 0x7f0900b6
-			public const int navigation_dashboard = 2131296438;
+			// aapt resource value: 0x7f0900b5
+			public const int navigation_dashboard = 2131296437;
 			
 			// aapt resource value: 0x7f090095
 			public const int navigation_header_container = 2131296405;
-			
-			// aapt resource value: 0x7f0900b5
-			public const int navigation_home = 2131296437;
-			
-			// aapt resource value: 0x7f0900b7
-			public const int navigation_notifications = 2131296439;
 			
 			// aapt resource value: 0x7f09003b
 			public const int never = 2131296315;
@@ -3155,6 +3155,9 @@ namespace CameraApp1
 			// aapt resource value: 0x7f0f0000
 			public const int navigation = 2131689472;
 			
+			// aapt resource value: 0x7f0f0001
+			public const int project_menu = 2131689473;
+			
 			static Menu()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3292,6 +3295,9 @@ namespace CameraApp1
 			// aapt resource value: 0x7f0a002c
 			public const int camera_permission_question = 2131361836;
 			
+			// aapt resource value: 0x7f0a0030
+			public const int cancel = 2131361840;
+			
 			// aapt resource value: 0x7f0a0020
 			public const int character_counter_pattern = 2131361824;
 			
@@ -3310,6 +3316,9 @@ namespace CameraApp1
 			// aapt resource value: 0x7f0a0025
 			public const int path_password_strike_through = 2131361829;
 			
+			// aapt resource value: 0x7f0a002f
+			public const int projects_title = 2131361839;
+			
 			// aapt resource value: 0x7f0a0011
 			public const int search_menu_title = 2131361809;
 			
@@ -3327,6 +3336,9 @@ namespace CameraApp1
 			
 			// aapt resource value: 0x7f0a002a
 			public const int title_notifications = 2131361834;
+			
+			// aapt resource value: 0x7f0a002e
+			public const int visits_title = 2131361838;
 			
 			static String()
 			{

@@ -14,10 +14,11 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+
 namespace CameraApp1
 {
     [Activity(Label = "@string/app_name", Theme = "@style/MyTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : AppCompatActivity
     {  //CompatAppActivity
        // TextView textMessage;
        // ImageView imageView;
@@ -37,10 +38,13 @@ namespace CameraApp1
                     SetContentView(Resource.Layout.activity_main);
                     llMain = FindViewById<RelativeLayout>(Resource.Id.container);
 
-                var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+                Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                //toolbar.InflateMenu(Resource.Menu.navigation);
                 toolbar.SetTitleTextColor(Android.Graphics.Color.White);
-                SetActionBar(toolbar);
-                ActionBar.Title = "VALITSE PROJEKTI";
+                toolbar.SetTitle(Resource.String.projects_title);
+                SetSupportActionBar(toolbar);
+                
+                //ActionBar.Title = "VALITSE PROJEKTI";
                 CheckCameraPermission();
                 
             }
@@ -81,32 +85,39 @@ namespace CameraApp1
             }
         }
 
-        //Tämä taitaa jäädä turhaksi?
-        public bool OnNavigationItemSelected(IMenuItem item)
+
+        //Laittaa menun näkyviin Toolbarinn
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            switch (item.ItemId)
-            {
-                case Resource.Id.navigation_home:
-                   // textMessage.SetText(Resource.String.title_home);
-                    return true;
-                case Resource.Id.navigation_dashboard:
-               //     Android.App.Fragment testFragment = new Test();
-                    var fm = FragmentManager;
-                    Android.App.FragmentTransaction ft = fm.BeginTransaction();
-                 //   ft.Add(Resource.LtestFragment);
-              
-                    //textMessage.SetText(Resource.String.title_dashboard);
-                    return true;
-                case Resource.Id.navigation_notifications:
-                    //textMessage.SetText(Resource.String.title_notifications);
-                    return true;
-            }
-            return false;
+            MenuInflater.Inflate(Resource.Menu.navigation, menu);
+            return base.OnCreateOptionsMenu(menu);
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.add_visit)
+            {
+                //hakee CaseId:n avatusta Valvontakäynti-fragmentista
+                Fragments.VisitsFragment casefrag = (Fragments.VisitsFragment)FragmentManager.FindFragmentByTag("CaseId");
+                string caseId = casefrag.caseId;
 
+                Bundle args = new Bundle();
+                args.PutString("case", caseId);
+                
+                Android.App.FragmentTransaction transaction = this.FragmentManager.BeginTransaction();
+                Android.App.DialogFragment fragment = new Fragments.NewVisitFragment();
+                fragment.Arguments = args;
+                //transaction.Replace(Resource.Id.fragment_placeholder, fragment);
+                //transaction.AddToBackStack(null);
+                //transaction.Commit();
+                fragment.Show(FragmentManager, "Formi");
+                
+            }
 
- 
+            Toast.MakeText(this, $"Action selected: { item.TitleFormatted }", ToastLength.Short).Show();
+            
+            return base.OnOptionsItemSelected(item);
+        }
     }
 }
 

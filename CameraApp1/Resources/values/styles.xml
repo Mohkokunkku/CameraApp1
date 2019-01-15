@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="windowActionBar">false</item>
+  <style name="MyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="windowActionBar">true</item>
     <item name="windowNoTitle">true</item>
     <item name="android:windowNoTitle">true</item>
-    <item name="android:windowActionBar">false</item>
+    <item name="android:windowActionBar">true</item>
     <item name="android:colorPrimary">#5A8622</item>
   </style>
 </resources>
