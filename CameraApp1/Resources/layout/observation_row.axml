@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<ImageView
+			android:id="@+id/observation_image"
+		    android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="100dp" />
+
+		<EditText
+			android:id="@+id/observation_text"
+			android:layout_weight="2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:hint="Anna kuvalle selitys"
+			android:textAppearance="?android:attr/textAppearanceSmallInverse"
+			android:textColor="#000000"/>
+	</LinearLayout>
+
+</LinearLayout>

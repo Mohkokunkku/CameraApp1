@@ -9,5 +9,6 @@
   <string name="visits_title">VALVONTAKÄYNNIT</string>
   <string name="projects_title">VALITSE PROJEKTI</string>
   <string name="cancel">CANCEL</string>
+  <string name="observations_title">VALVONTAKUVAT</string>
   
 </resources>

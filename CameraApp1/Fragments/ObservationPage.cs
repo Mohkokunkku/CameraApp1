@@ -70,7 +70,7 @@ namespace CameraApp1
 
         }
 
-        private void viewCamera_Click(object sender, EventArgs e)
+        public void viewCamera_Click(object sender, EventArgs e)
         {
             //Intent intent = new Intent("ACTION_IMAGE_CAPTURE");
 
@@ -103,9 +103,9 @@ namespace CameraApp1
             }
         }
         //luo uuden havainnon jota aletaan käsittelemään 
-        private void CreateNewObservation(Uri uri)
+        public static void CreateNewObservation(Uri uri)
         {
-            observation = new Observation(uri);
+            //observation = new Observation(uri);
 
         }
 
@@ -133,7 +133,7 @@ namespace CameraApp1
 
                     //Bitmap bitmap = (Bitmap)data.Extras.Get("data");
                     //imageView.SetImageBitmap(bitmap);
-                    imageView.SetImageURI(observation.imageuri);
+                    //imageView.SetImageURI(observation.imageuri);
                 }
 
 

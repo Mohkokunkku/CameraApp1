@@ -112,9 +112,14 @@ namespace CameraApp1
                 //transaction.Commit();
                 fragment.Show(FragmentManager, "Formi");
                 
+                
             }
-
-            Toast.MakeText(this, $"Action selected: { item.TitleFormatted }", ToastLength.Short).Show();
+            else if (item.ItemId == Resource.Id.take_photo_menu)
+            {
+                Fragments.ObservationFragment observationfrag = (Fragments.ObservationFragment)FragmentManager.FindFragmentByTag("observation");
+                observationfrag.TakePhoto();
+            }
+            //Toast.MakeText(this, $"Action selected: { item.TitleFormatted }", ToastLength.Short).Show();
             
             return base.OnOptionsItemSelected(item);
         }

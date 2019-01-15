@@ -17,7 +17,7 @@ using System.Collections.Generic;
 //    }
 //}
 
-public class MonitoringVisit
+public class MonitoringVisit: Java.Lang.Object
 {
    // public List<Observation> observations = new List<Observation>();
     public string GUID { get; set; }

@@ -47,8 +47,8 @@ namespace CameraApp1.Fragments
                     SQLiteConnection db = new SQLiteConnection(dbPath);
                    
                     string caseid = Arguments.GetString("case");
-                    //tähän pitäisi laittaa uuden visitin tallennus SQLiteen
-                    MonitoringVisit visit = new MonitoringVisit { name = text.Text, casenumber = caseid };
+                    //laittaa uuden visitin SQLiteen
+                    MonitoringVisit visit = new MonitoringVisit { name = text.Text, casenumber = caseid, GUID = $"{ Guid.NewGuid()}" };
                     db.CreateTable<MonitoringVisit>();
                     db.Insert(visit);
                     builder.Dispose();
