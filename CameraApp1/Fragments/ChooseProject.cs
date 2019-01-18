@@ -79,7 +79,7 @@ namespace CameraApp1.Fragments
             base.OnListItemClick(l, v, position, id);
             //Tämä tavoittaa listasta valitun projektin
             Project project = (Project)this.ListAdapter.GetItem(position);
-
+            //Project project = new Project() { caseId = }
             //Tämä vaihtaa fragmentin --> on vielä ihan testinä vain kuvanotto fragmentti
             VisitFragmentOn(project);
 
@@ -89,7 +89,7 @@ namespace CameraApp1.Fragments
         {
             VisitsFragment visits = new VisitsFragment();
             Bundle args = new Bundle();
-            args.PutString("case", project.CaseId);
+            args.PutString("case", project.caseId);
             visits.Arguments = args;
             //ois kyllä helppoa käyttää sitä Visits-classia jossa on kaikki käynnit niin ei tarvitsisi passailla listoja tai muuta 
             //vaan seuraava fragmentti voisi hakea suoraan tietokannasta tavarat ilman datan syöttelyä
@@ -107,21 +107,22 @@ namespace CameraApp1.Fragments
 
             try
             {
+           
 
-                List<Project> projects = new List<Project>();
-                Uri uri = new Uri(@"http://192.168.100.210:49785/projectsapi/GetProjects");
+                //List<Project> projects = new List<Project>();
+                //Uri uri = new Uri(@"https://192.168.137.1:45455/projectsapi/GetProjects");
                 //HttpClient client = new HttpClient();
-                //string downloadaddress = @"http://192.168.100.210:49785/projectsapi/GetProjects22";
-                
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")); //TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+                string downloadaddress = @"http://10.0.2.2:49785/projectsapi/GetProjects";
+
+                // client.DefaultRequestHeaders.Accept.Clear();
+                //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")); //TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
                 //HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, downloadaddress);
-                var response = client.GetAsync(uri).Result;
+                var response = client.GetAsync(downloadaddress).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine("Tuleeko mitään konsoliin?");
                     var content = response.Content.ReadAsStringAsync().Result;
-                    projects = JsonConvert.DeserializeObject<List<Project>>(content);
+                    var projects = JsonConvert.DeserializeObject<List<Project>>(content);
                     JavaList<Project> javaprojects = new JavaList<Project>();
 
                     foreach (var item in projects)
@@ -143,43 +144,6 @@ namespace CameraApp1.Fragments
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-        }
-
-
-        public async Task<List<Project>> GetProjectsAsync()
-        {
-
-            try
-            {
-                List<Project> projects = new List<Project>();
-                HttpClient client = new HttpClient();
-                string downloadaddress = @"https://192.168.100.210:44389/projectsapi/GetProjects";
-
-                var response = await client.GetAsync(downloadaddress);
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("Tuleeko mitään konsoliin?");
-                    var content = await response.Content.ReadAsStringAsync();
-                    projects = JsonConvert.DeserializeObject<List<Project>>(content);
-                    //JavaList<Project> javaprojects = new JavaList<Project>();
-
-                    //foreach (var item in projects)
-                    //{
-                    //    javaprojects.Add(item);
-                    //}
-                    //this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
-                    return projects;
-                }
-                return projects;
-                // List<Project> projects = JsonConvert.DeserializeObject<List<Project>>($"{httpgetresponse.Content}");
-                //return projects;
-            }
-            catch (HttpRequestException ex)
-            {
-                
-                Console.WriteLine(ex.InnerException.Message);
-                return null;
             }
         }
     }

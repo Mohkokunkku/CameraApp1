@@ -51,7 +51,7 @@ namespace CameraApp1.Models
             if (convertView == null)
             {
                 convertView = inflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
-                convertView.FindViewById<TextView>(Android.Resource.Id.Text1).Text = $"{projects[position].CaseId}, {projects[position].Name}";
+                convertView.FindViewById<TextView>(Android.Resource.Id.Text1).Text = $"{projects[position].caseId}, {projects[position].name}";
                 return convertView;
             }
             return convertView;

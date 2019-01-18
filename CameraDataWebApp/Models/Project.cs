@@ -2,7 +2,7 @@
 {
     public class Project
     {
-        public string Name { get; set; }
-        public string CaseId { get; set; }
+        public string name { get; set; }
+        public string caseId { get; set; }
     }
 }

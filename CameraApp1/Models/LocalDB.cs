@@ -26,16 +26,16 @@ public static class LocalDB
     public static List<Project> AddTestProjects()
     {
         Project project1 = new Project();
-        project1.CaseId = "345";
-        project1.Name = "Aleksiskiven Katu 50";
+        project1.caseId = "345";
+        project1.name = "Aleksiskiven Katu 50";
 
         Project project2 = new Project();
-        project2.CaseId = "655";
-        project2.Name = "Ruosilankuja 3";
+        project2.caseId = "655";
+        project2.name = "Ruosilankuja 3";
 
         Project project3 = new Project();
-        project3.CaseId = "1008";
-        project3.Name = "Kolmaslinja 7";
+        project3.caseId = "1008";
+        project3.name = "Kolmaslinja 7";
 
         return new List<Project> { project1, project2, project3};
     }
