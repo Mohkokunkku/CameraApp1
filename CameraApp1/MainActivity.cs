@@ -38,6 +38,9 @@ namespace CameraApp1
                     SetContentView(Resource.Layout.activity_main);
                     llMain = FindViewById<RelativeLayout>(Resource.Id.container);
 
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().PermitAll().Build();
+                    StrictMode.SetThreadPolicy(policy);
+                
                 Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 //toolbar.InflateMenu(Resource.Menu.navigation);
                 toolbar.SetTitleTextColor(Android.Graphics.Color.White);

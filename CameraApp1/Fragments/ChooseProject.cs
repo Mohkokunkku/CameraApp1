@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,12 +13,14 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 using SQLite;
 
 namespace CameraApp1.Fragments
 {
     public class ChooseProjectFragment : ListFragment //Tämä sisältää defaulttina ListViewin joten ei ole tehty erillistä layout-tiedostoa
     {
+        static HttpClient client = new HttpClient();
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,7 +28,7 @@ namespace CameraApp1.Fragments
             // Create your fragment here
             
         }
-
+        
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             SetHasOptionsMenu(true);
@@ -36,7 +39,7 @@ namespace CameraApp1.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-
+            Toast.MakeText(Android.App.Application.Context, "Lataa projekteja", ToastLength.Long).Show();
             string dbPath = Path.Combine(
         System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
         "database.docstarter");
@@ -50,17 +53,14 @@ namespace CameraApp1.Fragments
                 //db.InsertAll(LocalDB.AddTestProjects());
                 //db.InsertAll(LocalDB.AddTestMonitorings());
 
-                var projectTable = db.Table<Project>();
-                List<Project> projects = projectTable.ToList();
+                //var projectTable = db.Table<Project>();
+                GetProjects(); //projectTable.ToList();
+
+
                 //muuta lista javalistaksi 
-                JavaList<Project> javaprojects = new JavaList<Project>();
 
-                foreach (var item in projects)
-                {
-                    javaprojects.Add(item);
-                }
 
-                this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+                
                 ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.projects_title);
             }
 
@@ -100,6 +100,87 @@ namespace CameraApp1.Fragments
             transaction.AddToBackStack(null);
             transaction.Commit();
 
+        }
+
+        public void GetProjects()
+        {
+
+            try
+            {
+
+                List<Project> projects = new List<Project>();
+                Uri uri = new Uri(@"http://192.168.100.210:49785/projectsapi/GetProjects");
+                //HttpClient client = new HttpClient();
+                //string downloadaddress = @"http://192.168.100.210:49785/projectsapi/GetProjects22";
+                
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")); //TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+                //HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, downloadaddress);
+                var response = client.GetAsync(uri).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Tuleeko mitään konsoliin?");
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    projects = JsonConvert.DeserializeObject<List<Project>>(content);
+                    JavaList<Project> javaprojects = new JavaList<Project>();
+
+                    foreach (var item in projects)
+                    {
+                        javaprojects.Add(item);
+                    }
+                    this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+                }
+
+                // List<Project> projects = JsonConvert.DeserializeObject<List<Project>>($"{httpgetresponse.Content}");
+                //return projects;
+            }
+            catch (HttpRequestException ex)
+            {
+
+                Console.WriteLine(ex.InnerException.Message);
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+        public async Task<List<Project>> GetProjectsAsync()
+        {
+
+            try
+            {
+                List<Project> projects = new List<Project>();
+                HttpClient client = new HttpClient();
+                string downloadaddress = @"https://192.168.100.210:44389/projectsapi/GetProjects";
+
+                var response = await client.GetAsync(downloadaddress);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Tuleeko mitään konsoliin?");
+                    var content = await response.Content.ReadAsStringAsync();
+                    projects = JsonConvert.DeserializeObject<List<Project>>(content);
+                    //JavaList<Project> javaprojects = new JavaList<Project>();
+
+                    //foreach (var item in projects)
+                    //{
+                    //    javaprojects.Add(item);
+                    //}
+                    //this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+                    return projects;
+                }
+                return projects;
+                // List<Project> projects = JsonConvert.DeserializeObject<List<Project>>($"{httpgetresponse.Content}");
+                //return projects;
+            }
+            catch (HttpRequestException ex)
+            {
+                
+                Console.WriteLine(ex.InnerException.Message);
+                return null;
+            }
         }
     }
 }
