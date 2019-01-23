@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tubb.smrv.SwipeHorizontalMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sml="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/visit_item"
+	android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	sml:sml_scroller_interpolator="@android:anim/bounce_interpolator"
+    sml:sml_auto_open_percent="0.2"
+    sml:sml_scroller_duration="250"
+	android:clickable="true"
+	>
+
+	<include android:id="@id/smContentView" layout="@layout/visit_item_content"/>
+	<include android:id="@id/smMenuViewRight" layout="@layout/visit_item_right_menu"/>
+
+
+</com.tubb.smrv.SwipeHorizontalMenuLayout>

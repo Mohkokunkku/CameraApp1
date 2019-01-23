@@ -12,8 +12,9 @@ namespace CameraDataWebApp.Services
 
         public List<Project> GetProjectList(string database = "DocOverride")
         {
-            
-            
+            string connString = @"Data Source=192.168.100.226\docstarter,1433;Initial Catalog=DocOverride;Persist Security Info=True;User ID=sa;Password=goC0p1ala;Pooling=False";
+
+
             List<Project> projects = new List<Project>();
             using (SqlConnection conn = new SqlConnection(connString))
             {

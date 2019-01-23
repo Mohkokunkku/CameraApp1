@@ -101,7 +101,7 @@ namespace CameraApp1
             if (item.ItemId == Resource.Id.add_visit)
             {
                 //hakee CaseId:n avatusta Valvontakäynti-fragmentista
-                Fragments.VisitsFragment casefrag = (Fragments.VisitsFragment)FragmentManager.FindFragmentByTag("CaseId");
+                Fragments.Fragment_Visits_Swipe_Menu casefrag = (Fragments.Fragment_Visits_Swipe_Menu)FragmentManager.FindFragmentByTag("CaseId");
                 string caseId = casefrag.caseId;
 
                 Bundle args = new Bundle();
@@ -116,6 +116,7 @@ namespace CameraApp1
                 fragment.Show(FragmentManager, "Formi");
                 
                 
+                
             }
             else if (item.ItemId == Resource.Id.take_photo_menu)
             {
@@ -126,6 +127,8 @@ namespace CameraApp1
             
             return base.OnOptionsItemSelected(item);
         }
+
+
     }
 }
 

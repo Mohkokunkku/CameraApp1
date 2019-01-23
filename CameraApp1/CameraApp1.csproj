@@ -68,8 +68,12 @@
     <Compile Include="Fragments\ChooseProject.cs" />
     <Compile Include="Fragments\Observations.cs" />
     <Compile Include="Fragments\Visits.cs" />
+    <Compile Include="Fragments\Fragment_Visits_Swipe_Menu.cs" />
+    <Compile Include="Interfaces\IItemClickListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\ObservationPage.cs" />
+    <Compile Include="Models\IMonitoringVisit.cs" />
+    <Compile Include="Models\ListAdapters\Visits_Swipe_Adapter.cs" />
     <Compile Include="Models\LocalDB.cs" />
     <Compile Include="Models\MonitoringVisit.cs" />
     <Compile Include="Models\Observation.cs" />
@@ -121,6 +125,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GoogleGson">
+      <Version>2.8.1</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.1</Version>
     </PackageReference>
@@ -134,6 +141,12 @@
       <Version>28.0.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0" />
+    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
+      <Version>28.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.RecyclerView.SwipeMenu">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_observations.axml">
@@ -165,6 +178,26 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\add_a_photo_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\swipe_menu_visits.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\visit_item_right_menu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\visit_item_content.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\visit_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

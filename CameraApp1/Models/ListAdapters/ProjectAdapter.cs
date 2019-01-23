@@ -16,10 +16,10 @@ namespace CameraApp1.Models
     public class ProjectAdapter : BaseAdapter
     {
         private Context context;
-        private JavaList<Project> projects;
+        private JavaList<JavaProject> projects;
         private LayoutInflater inflater;
 
-        public ProjectAdapter(Context context, JavaList<Project> projects)
+        public ProjectAdapter(Context context, JavaList<JavaProject> projects)
         {
             this.context = context;
             this.projects = projects;

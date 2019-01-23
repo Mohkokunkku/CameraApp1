@@ -5,13 +5,25 @@ using Java.Lang;
 
 public class Project: Java.Lang.Object
 {
-   
-   public string name { get; set; }
-   
-   public string caseId { get; set; } //DocStarterin projektiID
- 
+    public string name { get; set; }
+
+    public string caseId { get; set; }
 
 }
+
+public class JavaProject: Java.Lang.Object
+{
+    public string name { get; set; }
+
+    public string caseId { get; set; }
+
+    public JavaProject(string name, string caseId)
+    {
+        this.name = name;
+        this.caseId = caseId;
+    }
+}
+
 
 public class Projects: Java.Lang.Object
 {
