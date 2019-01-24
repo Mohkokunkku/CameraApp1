@@ -15,7 +15,6 @@ using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
 using SQLite;
-using GoogleGson;
 
 namespace CameraApp1.Fragments
 {
@@ -116,7 +115,7 @@ namespace CameraApp1.Fragments
                 //Uri uri = new Uri(@"https://192.168.137.1:45455/projectsapi/GetProjects");
                 //HttpClient client = new HttpClient();
                 //string downloadaddress = @"http://10.0.2.2:49785/projectsapi/GetProjects";
-                string downloadaddress = @"http://192.168.100.210:49785/projectsapi/GetProjects";
+                string downloadaddress = @"http://192.168.100.210:47850/projectsapi/GetProjects";
                 // client.DefaultRequestHeaders.Accept.Clear();
                 //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")); //TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
                 //HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, downloadaddress);

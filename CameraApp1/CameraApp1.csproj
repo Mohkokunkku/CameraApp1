@@ -125,9 +125,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GoogleGson">
-      <Version>2.8.1</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.1</Version>
     </PackageReference>

@@ -12,13 +12,20 @@ namespace CameraDataWebApp
 {
     public class Program
     {
+        public static ConfigurationBuilder config;
+        
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
+            //config = new ConfigurationBuilder().AddCommandLine(args).Build();
+            //var hosturl = conf
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+            .UseKestrel()
+            .UseUrls(@"http://192.168.100.210:47850");
     }
 }

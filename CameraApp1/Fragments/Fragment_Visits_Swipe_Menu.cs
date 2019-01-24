@@ -68,7 +68,7 @@ namespace CameraApp1.Fragments
                 }
                 recyclerView = View.FindViewById<SwipeMenuRecyclerView>(Resource.Id.swipe_menu_visits);
                 recyclerView.SetAdapter(new Visits_Swipe_Adapter(this.Activity, javavisits));
-                recyclerView.SetLayoutManager(new LinearLayoutManager(this.Context));
+                recyclerView.SetLayoutManager(new LinearLayoutManager(this.Activity));
 
                 //this.ListAdapter = new Models.VisitsAdapter(Android.App.Application.Context, javavisits);
 
