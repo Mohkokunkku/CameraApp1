@@ -2248,26 +2248,26 @@ namespace CameraApp1
 			// aapt resource value: 0x7f020055
 			public const int avd_hide_password = 2130837589;
 			
-			// aapt resource value: 0x7f020070
-			public const int avd_hide_password_1 = 2130837616;
+			// aapt resource value: 0x7f020073
+			public const int avd_hide_password_1 = 2130837619;
 			
-			// aapt resource value: 0x7f020071
-			public const int avd_hide_password_2 = 2130837617;
+			// aapt resource value: 0x7f020074
+			public const int avd_hide_password_2 = 2130837620;
 			
-			// aapt resource value: 0x7f020072
-			public const int avd_hide_password_3 = 2130837618;
+			// aapt resource value: 0x7f020075
+			public const int avd_hide_password_3 = 2130837621;
 			
 			// aapt resource value: 0x7f020056
 			public const int avd_show_password = 2130837590;
 			
-			// aapt resource value: 0x7f020073
-			public const int avd_show_password_1 = 2130837619;
+			// aapt resource value: 0x7f020076
+			public const int avd_show_password_1 = 2130837622;
 			
-			// aapt resource value: 0x7f020074
-			public const int avd_show_password_2 = 2130837620;
+			// aapt resource value: 0x7f020077
+			public const int avd_show_password_2 = 2130837623;
 			
-			// aapt resource value: 0x7f020075
-			public const int avd_show_password_3 = 2130837621;
+			// aapt resource value: 0x7f020078
+			public const int avd_show_password_3 = 2130837624;
 			
 			// aapt resource value: 0x7f020057
 			public const int design_bottom_navigation_item_background = 2130837591;
@@ -2297,52 +2297,61 @@ namespace CameraApp1
 			public const int ic_notifications_black_24dp = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int navigation_empty_icon = 2130837600;
+			public const int loading = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int notification_action_background = 2130837601;
+			public const int navigation_empty_icon = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int notification_bg = 2130837602;
+			public const int notification_action_background = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int notification_bg_low = 2130837603;
+			public const int notification_bg = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int notification_bg_low_normal = 2130837604;
+			public const int notification_bg_low = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int notification_bg_low_pressed = 2130837605;
+			public const int notification_bg_low_normal = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int notification_bg_normal = 2130837606;
+			public const int notification_bg_low_pressed = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int notification_bg_normal_pressed = 2130837607;
+			public const int notification_bg_normal = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int notification_icon_background = 2130837608;
-			
-			// aapt resource value: 0x7f02006e
-			public const int notification_template_icon_bg = 2130837614;
-			
-			// aapt resource value: 0x7f02006f
-			public const int notification_template_icon_low_bg = 2130837615;
+			public const int notification_bg_normal_pressed = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int notification_tile_bg = 2130837609;
+			public const int notification_icon_background = 2130837609;
+			
+			// aapt resource value: 0x7f020071
+			public const int notification_template_icon_bg = 2130837617;
+			
+			// aapt resource value: 0x7f020072
+			public const int notification_template_icon_low_bg = 2130837618;
 			
 			// aapt resource value: 0x7f02006a
-			public const int notify_panel_notification_icon_bg = 2130837610;
+			public const int notification_tile_bg = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int outline_add_box_black_18dp = 2130837611;
+			public const int notify_panel_notification_icon_bg = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int tooltip_frame_dark = 2130837612;
+			public const int outline_add_box_black_18dp = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int tooltip_frame_light = 2130837613;
+			public const int rubbish_bin = 2130837613;
+			
+			// aapt resource value: 0x7f02006e
+			public const int tooltip_frame_dark = 2130837614;
+			
+			// aapt resource value: 0x7f02006f
+			public const int tooltip_frame_light = 2130837615;
+			
+			// aapt resource value: 0x7f020070
+			public const int upload_to_the_cloud = 2130837616;
 			
 			static Drawable()
 			{
@@ -2441,8 +2450,8 @@ namespace CameraApp1
 			// aapt resource value: 0x7f08002c
 			public const int add = 2131230764;
 			
-			// aapt resource value: 0x7f0800c1
-			public const int add_visit = 2131230913;
+			// aapt resource value: 0x7f0800c3
+			public const int add_visit = 2131230915;
 			
 			// aapt resource value: 0x7f080075
 			public const int alertTitle = 2131230837;
@@ -2636,14 +2645,14 @@ namespace CameraApp1
 			// aapt resource value: 0x7f080066
 			public const int list_item = 2131230822;
 			
-			// aapt resource value: 0x7f0800bf
-			public const int masked = 2131230911;
+			// aapt resource value: 0x7f0800c1
+			public const int masked = 2131230913;
 			
 			// aapt resource value: 0x7f0800aa
 			public const int media_actions = 2131230890;
 			
-			// aapt resource value: 0x7f0800ba
-			public const int message = 2131230906;
+			// aapt resource value: 0x7f0800bb
+			public const int message = 2131230907;
 			
 			// aapt resource value: 0x7f080036
 			public const int middle = 2131230774;
@@ -2654,8 +2663,8 @@ namespace CameraApp1
 			// aapt resource value: 0x7f08002d
 			public const int multiply = 2131230765;
 			
-			// aapt resource value: 0x7f0800c0
-			public const int navigation_dashboard = 2131230912;
+			// aapt resource value: 0x7f0800c2
+			public const int navigation_dashboard = 2131230914;
 			
 			// aapt resource value: 0x7f08009a
 			public const int navigation_header_container = 2131230874;
@@ -2711,8 +2720,11 @@ namespace CameraApp1
 			// aapt resource value: 0x7f0800b2
 			public const int right_icon = 2131230898;
 			
-			// aapt resource value: 0x7f0800bd
-			public const int right_menu_delete_item = 2131230909;
+			// aapt resource value: 0x7f0800b9
+			public const int right_menu_delete = 2131230905;
+			
+			// aapt resource value: 0x7f0800be
+			public const int right_menu_delete_item = 2131230910;
 			
 			// aapt resource value: 0x7f0800ae
 			public const int right_side = 2131230894;
@@ -2776,6 +2788,9 @@ namespace CameraApp1
 			
 			// aapt resource value: 0x7f08008f
 			public const int select_dialog_listview = 2131230863;
+			
+			// aapt resource value: 0x7f0800bf
+			public const int send_to_server_button = 2131230911;
 			
 			// aapt resource value: 0x7f080079
 			public const int shortcut = 2131230841;
@@ -2843,8 +2858,8 @@ namespace CameraApp1
 			// aapt resource value: 0x7f08008c
 			public const int submit_area = 2131230860;
 			
-			// aapt resource value: 0x7f0800b9
-			public const int swipe_menu_visits = 2131230905;
+			// aapt resource value: 0x7f0800ba
+			public const int swipe_menu_visits = 2131230906;
 			
 			// aapt resource value: 0x7f080024
 			public const int tabMode = 2131230756;
@@ -2852,8 +2867,8 @@ namespace CameraApp1
 			// aapt resource value: 0x7f08001e
 			public const int tag_transition_group = 2131230750;
 			
-			// aapt resource value: 0x7f0800c2
-			public const int take_photo_menu = 2131230914;
+			// aapt resource value: 0x7f0800c4
+			public const int take_photo_menu = 2131230916;
 			
 			// aapt resource value: 0x7f08001f
 			public const int text = 2131230751;
@@ -2927,14 +2942,14 @@ namespace CameraApp1
 			// aapt resource value: 0x7f08001b
 			public const int view_offset_helper = 2131230747;
 			
-			// aapt resource value: 0x7f0800be
-			public const int visible = 2131230910;
+			// aapt resource value: 0x7f0800c0
+			public const int visible = 2131230912;
+			
+			// aapt resource value: 0x7f0800bd
+			public const int visit_content = 2131230909;
 			
 			// aapt resource value: 0x7f0800bc
-			public const int visit_content = 2131230908;
-			
-			// aapt resource value: 0x7f0800bb
-			public const int visit_item = 2131230907;
+			public const int visit_item = 2131230908;
 			
 			// aapt resource value: 0x7f080041
 			public const int withText = 2131230785;

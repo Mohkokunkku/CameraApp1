@@ -97,14 +97,14 @@ namespace CameraApp1.Fragments
                     Java.IO.File _file = new Java.IO.File(_dir, string.Format("Image_{0}.jpg", Guid.NewGuid()));
                     // Android.Net.Uri photouri = FileProvider.GetUriForFile(context, )
                     //Uri photoURI = Uri.FromFile(_file);
-
+                    
                     Android.Net.Uri photoUri = FileProvider.GetUriForFile(Android.App.Application.Context, "com.mydomain.fileprovider", _file);
                     intent.PutExtra(MediaStore.ExtraOutput, photoUri);
                     //CreateNewObservation(photoUri);
                    
                     intent.AddFlags(ActivityFlags.GrantReadUriPermission);
                     
-                    CreateNewObservation(photoUri);
+                    CreateNewObservation(photoUri, _file.AbsolutePath);
 
                     StartActivityForResult(intent, 0);
                 }
@@ -146,9 +146,10 @@ namespace CameraApp1.Fragments
             }
         }
 
-        public void CreateNewObservation(Android.Net.Uri uri)
+        public void CreateNewObservation(Android.Net.Uri uri, string absolutePath)
         {
-            observation = new Observation() {imageuri = $"{uri}", visitguid = $"{visitguid}", observationguid = $"{ Guid.NewGuid() }"  };
+            
+            observation = new Observation() {absolutepath = absolutePath, imageuri = $"{uri}", visitguid = $"{visitguid}", observationguid = $"{ Guid.NewGuid() }"  };
 
         }
 

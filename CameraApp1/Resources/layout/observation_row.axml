@@ -8,7 +8,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
-		<ImageView
+		<FFImageLoading.Views.ImageViewAsync
 			android:id="@+id/observation_image"
 		    android:layout_width="0dp"
 			android:layout_weight="1"
@@ -20,8 +20,16 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:hint="Anna kuvalle selitys"
-			android:textAppearance="?android:attr/textAppearanceSmallInverse"
 			android:textColor="#000000"/>
+
+			<ImageView
+		android:id="@+id/right_menu_delete"
+		android:layout_height="match_parent"
+		android:layout_width="40dp"
+		android:src="@drawable/rubbish_bin"
+		android:background="@android:color/holo_red_light" 
+		/>
+
 	</LinearLayout>
 
 </LinearLayout>

@@ -14,6 +14,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using FFImageLoading;
 
 namespace CameraApp1
 {
@@ -66,7 +67,7 @@ namespace CameraApp1
             Fragments.ChooseProjectFragment mainPageFragment = new Fragments.ChooseProjectFragment();
 
             fragmentTx.Add(Resource.Id.fragment_placeholder, mainPageFragment);
-            fragmentTx.AddToBackStack(null);
+           // fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
         }
 
@@ -94,6 +95,13 @@ namespace CameraApp1
         {
             MenuInflater.Inflate(Resource.Menu.navigation, menu);
             return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
+        {
+            ImageService.Instance.InvalidateMemoryCache();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            base.OnTrimMemory(level);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

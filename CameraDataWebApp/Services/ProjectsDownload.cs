@@ -19,7 +19,7 @@ namespace CameraDataWebApp.Services
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                SqlCommand command = new SqlCommand("SELECT CaseNo, ProjectName FROM [dbo].[Projects]", conn);
+                SqlCommand command = new SqlCommand("SELECT CaseNo, ProjectName FROM [dbo].[Projects] GROUP BY ProjectName, CaseNo;", conn);
                 try
                 {
                     using (SqlDataReader reader = command.ExecuteReader())

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -21,6 +22,7 @@ namespace CameraApp1.Fragments
     public class ChooseProjectFragment : ListFragment //Tämä sisältää defaulttina ListViewin joten ei ole tehty erillistä layout-tiedostoa
     {
         static HttpClient client = new HttpClient();
+        public bool IsDownloaded = false;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -39,38 +41,42 @@ namespace CameraApp1.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            Toast.MakeText(Android.App.Application.Context, "Lataa projekteja", ToastLength.Long).Show();
-            string dbPath = Path.Combine(
-        System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
-        "database.docstarter");
+            //Toast.MakeText(Android.App.Application.Context, "Lataa projekteja", ToastLength.Long).Show();
 
-            try
+            if (IsDownloaded == false)
             {
-                SQLiteConnection db = new SQLiteConnection(dbPath);
-                db.CreateTable<Project>();
-                db.CreateTable<MonitoringVisit>();
-                //Näillä voi laittaa kovakoodatut projektit SqlLiteen 
-                //db.InsertAll(LocalDB.AddTestProjects());
-                //db.InsertAll(LocalDB.AddTestMonitorings());
+                string dbPath = Path.Combine(
+    System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+    "database.docstarter");
 
-                //var projectTable = db.Table<Project>();
-                //Tämä pitäisi muuttaa niin, että tekee vain kerran tai jotenkin ettei tee jos on haettu jo aikaisemmin tai olla joku nappula että hae kaikki 
-                //GetProjects(); //projectTable.ToList();
-                this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, GetProjects());
+                try
+                {
+                    SQLiteConnection db = new SQLiteConnection(dbPath);
+                    db.CreateTable<Project>();
+                    db.CreateTable<MonitoringVisit>();
+                    //Näillä voi laittaa kovakoodatut projektit SqlLiteen 
+                    //db.InsertAll(LocalDB.AddTestProjects());
+                    //db.InsertAll(LocalDB.AddTestMonitorings());
 
-                //muuta lista javalistaksi 
+                    //var projectTable = db.Table<Project>();
+                    //Tämä pitäisi muuttaa niin, että tekee vain kerran tai jotenkin ettei tee jos on haettu jo aikaisemmin tai olla joku nappula että hae kaikki 
+                    //GetProjects(); //projectTable.ToList();
+                    this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, GetProjects());
+
+                    //muuta lista javalistaksi 
 
 
 
-                ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.projects_title);
-            }
+                    ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.projects_title);
+                }
 
 
 
-            catch (global::System.Exception ex)
-            {
+                catch (global::System.Exception ex)
+                {
 
-                string error = ex.Message;
+                    string error = ex.Message;
+                } 
             }
         }
 
@@ -141,7 +147,9 @@ namespace CameraApp1.Fragments
                     //{
 
                     //}
-
+                    IsDownloaded = true;
+                    
+                    //javaprojects = javaprojects.GroupBy(u => u.name).Select(grp => grp.ToList()).ToJavaList();
                     return javaprojects;
                     //this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
                 }

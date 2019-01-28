@@ -17,6 +17,51 @@ public static class LocalDB
         
     }
 
+    public static void DeleteVisit(IMonitoringVisit visit)
+    {
+
+        try
+        {
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
+            var visitguid = visit.GUID;
+            SQLiteConnection db = new SQLiteConnection(dbPath);
+            db.CreateTable<MonitoringVisit>();
+
+            //TUHOAA VIIKKOKÄYNNIN LISTASTA
+            db.Delete<MonitoringVisit>(visit.pkId);
+            db.CreateTable<Observation>();
+
+            //HAKEE LISTAN KUVISTA JA TUHOAA NE TIETOKANNASTA FOREACH-LOOPISSA
+            List<Observation> observations = db.Table<Observation>().Where(s => s.visitguid == visitguid).ToList();
+            foreach (var item in observations)
+            {
+                db.Table<Observation>().Where(x => x.visitguid == item.visitguid).Delete();
+                if (File.Exists(item.absolutepath))
+                {
+                    File.Delete(item.absolutepath);
+                    if (File.Exists(item.absolutepath) == false)
+                    {
+                        Console.WriteLine("Kuva poistettu onnistuneesti");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Kuvan poistossa häikkää");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Valokuvan poisto muistista ei onnistunut");
+                }
+            }
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
+        //List<MonitoringVisit> visits = db.Table<MonitoringVisit>().Where(s => s.casenumber == caseId).ToList();
+    }
     //public static List<Project> GetProjects()
     //{
     //    //var projects = (JavaList)db.Table<Project>();

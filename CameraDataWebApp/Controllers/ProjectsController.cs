@@ -26,6 +26,7 @@ namespace CameraDataWebApp.Controllers
         public ActionResult<List<Project>> GetProjectList()
         {
             List<Project> projectlist = projects.GetProjectList();
+           // var projectlist2 = projectlist.GroupBy(x => x.name).Select(grp => grp.ToList()).ToList();
             if (projectlist == null)
             {
                 return NotFound("Ei löydy");

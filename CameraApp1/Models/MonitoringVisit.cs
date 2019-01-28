@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 
 //Pohdista: Onko tämä Visits tarpeellinen vai pitäisikö laittaa projektille vain List<MonitoringVisit> 
@@ -16,15 +17,18 @@ using System.Collections.Generic;
 
 //    }
 //}
-
+[Table("")]
 public class MonitoringVisit : Java.Lang.Object, IMonitoringVisit
 {
    // public List<Observation> observations = new List<Observation>();
+  
     public string GUID { get; set; }
     //private int number;
     public string casenumber { get; set; }
     //private string projectGUID;
     public string name { get; set; }
+    [PrimaryKey, AutoIncrement]
+    public int pkId { get; set; }
 
     //private MonitoringVisit(string name, string casenumber)//, string projectGUID)
     //{
