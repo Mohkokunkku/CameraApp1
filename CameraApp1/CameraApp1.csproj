@@ -69,7 +69,8 @@
     <Compile Include="Interfaces\IItemClickListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\ObservationPage.cs" />
-    <Compile Include="Models\IMonitoringVisit.cs" />
+    <Compile Include="Interfaces\IMonitoringVisit.cs" />
+    <Compile Include="Interfaces\IObservation.cs" />
     <Compile Include="Models\ListAdapters\Visits_Swipe_Adapter.cs" />
     <Compile Include="Models\LocalDB.cs" />
     <Compile Include="Models\MonitoringVisit.cs" />
@@ -210,6 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\rubbish_bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\ids.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

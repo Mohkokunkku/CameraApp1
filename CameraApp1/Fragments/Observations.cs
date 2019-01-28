@@ -23,6 +23,7 @@ namespace CameraApp1.Fragments
         public string visitguid { get; set; } //Valvontakäynnin GUID talteen 
         public static Java.IO.File _dir;
         public Observation observation { get; set; }
+        public JavaList<Observation> javaobservations { get; set; } = new JavaList<Observation>();
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,7 +44,7 @@ namespace CameraApp1.Fragments
                     db.CreateTable<Observation>();
                     visitguid = Arguments.GetString("visitguid");
                     List<Observation> observations = db.Table<Observation>().Where(s => s.visitguid == visitguid).ToList();
-                    JavaList<Observation> javaobservations = new JavaList<Observation>();
+                    //JavaList<Observation> javaobservations = new JavaList<Observation>();
 
                     if (observations.Count > 0)
                     {
@@ -76,12 +77,12 @@ namespace CameraApp1.Fragments
         }
 
         //pitäisi avata kuva jotenkin? vai täytyykö olla joku ImageViewclick?
-        public override void OnListItemClick(ListView l, View v, int position, long id)
-        {
-            base.OnListItemClick(l, v, position, id);
+        //public override void OnListItemClick(ListView l, View v, int position, long id)
+        //{
+        //    base.OnListItemClick(l, v, position, id);
+        //   // if (v.GetType == ImageView);
 
-
-        }
+        //}
 
         //KUVANOTTO SKRIPTIT --> KOPIOITU VANHASTA ObservationPage-fragmentistä jolle ei välttämättä ole enää käyttöä projektissa
 

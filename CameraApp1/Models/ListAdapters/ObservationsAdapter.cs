@@ -13,6 +13,7 @@ using Android.Widget;
 using FFImageLoading;
 using FFImageLoading.Views;
 using Java.Lang;
+using static Android.Views.View;
 
 namespace CameraApp1.Models
 {
@@ -77,6 +78,10 @@ namespace CameraApp1.Models
                     //LAITTAA TEKSTIN RIVIN EDITTEXTIIN
                     EditText text = convertView.FindViewById<EditText>(Resource.Id.observation_text);
                     text.Text = $"{observation.observation}";
+                    ImageView imageView = convertView.FindViewById<ImageView>(Resource.Id.right_menu_delete);
+                   // imageView.SetTag(Resource.Id.imageholder, position);
+                    imageView.Clickable = true;
+                    imageView.Click += (sender, n) => Delete_Item(sender, n, position);
                 }
                 catch (System.Exception ex)
                 {
@@ -86,5 +91,24 @@ namespace CameraApp1.Models
             }
             return convertView;
         }
+
+        private void Delete_Item(object position, EventArgs convertView, int pos)
+        {
+            LocalDB.DeleteObservation((IObservation)GetItem(pos));
+            //throw new NotImplementedException();
+        }
+
+        //private EventHandler ImageClick(EventArgs args)
+        //{
+        //    Console.WriteLine
+        //}
+
+        //public void OnClick(View v)
+        //{
+        //    var tag = v.GetTag(0);
+        //    int position = (int)tag; 
+        //    observations.RemoveAt(position);
+
+
     }
 }

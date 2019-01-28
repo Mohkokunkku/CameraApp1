@@ -17,6 +17,18 @@ public static class LocalDB
         
     }
 
+    public static void DeleteObservation(IObservation observation)
+    {
+        string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
+        SQLiteConnection db = new SQLiteConnection(dbPath);
+        db.Delete<Observation>(observation.pkId);
+
+        if (File.Exists(observation.absolutepath))
+        {
+            File.Delete(observation.absolutepath);
+        }
+    }
+
     public static void DeleteVisit(IMonitoringVisit visit)
     {
 
