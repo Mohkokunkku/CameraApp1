@@ -50,7 +50,7 @@ namespace CameraApp1
                 
                 //ActionBar.Title = "VALITSE PROJEKTI";
                 CheckCameraPermission();
-                
+                FFImageLoadConfigs();
             }
             catch (Exception ex)
             {
@@ -97,12 +97,12 @@ namespace CameraApp1
             return base.OnCreateOptionsMenu(menu);
         }
 
-        public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
-        {
-            ImageService.Instance.InvalidateMemoryCache();
-            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-            base.OnTrimMemory(level);
-        }
+        //public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
+        //{
+        //    ImageService.Instance.InvalidateMemoryCache();
+        //    GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+        //    base.OnTrimMemory(level);
+        //}
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -131,11 +131,24 @@ namespace CameraApp1
                 Fragments.ObservationFragment observationfrag = (Fragments.ObservationFragment)FragmentManager.FindFragmentByTag("observation");
                 observationfrag.TakePhoto();
             }
+
+            //else if (item.ItemId == Resource.Id.start_delete_mode)
+            //{
+            //    Fragments.ObservationFragment observationfrag = (Fragments.ObservationFragment)FragmentManager.FindFragmentByTag("observation");
+                
+            //}
             //Toast.MakeText(this, $"Action selected: { item.TitleFormatted }", ToastLength.Short).Show();
             
             return base.OnOptionsItemSelected(item);
         }
 
+        public void FFImageLoadConfigs()
+        {
+            string tmpPath = this.CacheDir.AbsolutePath;
+            string cachePath = System.IO.Path.Combine(tmpPath, "docstartercache");
+            var config = new FFImageLoading.Config.Configuration() { VerboseLogging = false, VerbosePerformanceLogging = false, VerboseMemoryCacheLogging = false, VerboseLoadingCancelledLogging = false, HttpClient = new System.Net.Http.HttpClient(new Xamarin.Android.Net.AndroidClientHandler()), DiskCachePath = cachePath, a };
+            FFImageLoading.ImageService.Instance.Initialize(config);
+        }
 
     }
 }

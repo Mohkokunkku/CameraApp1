@@ -12,7 +12,7 @@ public class Observation : Java.Lang.Object, IObservation
     public string observation { get; set; }
     public string absolutepath { get; set; }
     public string imageuri { get; set; }
-
+    public string cachepath { get; set; }
     public string observationguid; //tämä on kuvahavainnon oma guid
 
     public string visitguid { get; set; } //tämä kertoo mihin valvontakäyntiin kuvahavaintokuuluu

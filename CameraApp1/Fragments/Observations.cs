@@ -53,8 +53,8 @@ namespace CameraApp1.Fragments
                             javaobservations.Add(item);
                         }
                     }
-
-                    this.ListAdapter = new Models.ObservationsAdapter(Android.App.Application.Context, javaobservations);
+                    //ListView.Focusable = false;
+                    this.ListAdapter = new Models.ObservationsAdapter(this.Activity, javaobservations);
                 }
 
             }
@@ -154,7 +154,7 @@ namespace CameraApp1.Fragments
 
         }
 
-        private void RefreshView()
+        public void RefreshView()
         {
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
             SQLiteConnection db = new SQLiteConnection(dbPath);
@@ -169,7 +169,7 @@ namespace CameraApp1.Fragments
                 }
             }
 
-            this.ListAdapter = new Models.ObservationsAdapter(Android.App.Application.Context, javaobservations);
+            this.ListAdapter = new Models.ObservationsAdapter(this.Activity, javaobservations);
         }
     }
 }

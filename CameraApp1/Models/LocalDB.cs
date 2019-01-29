@@ -22,11 +22,19 @@ public static class LocalDB
         string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
         SQLiteConnection db = new SQLiteConnection(dbPath);
         db.Delete<Observation>(observation.pkId);
-
+        
+        //poistaa kuvan kännykän muistista
         if (File.Exists(observation.absolutepath))
         {
             File.Delete(observation.absolutepath);
         }
+    }
+
+    public static void UpdateObservation(IObservation observation)
+    {
+        string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
+        SQLiteConnection db = new SQLiteConnection(dbPath);
+        db.InsertOrReplace(observation);
     }
 
     public static void DeleteVisit(IMonitoringVisit visit)

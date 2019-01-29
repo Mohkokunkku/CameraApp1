@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Fragments\AddVisitFragment.cs" />
     <Compile Include="Fragments\ChooseProject.cs" />
+    <Compile Include="Fragments\Fragment_AddObservationText.cs" />
     <Compile Include="Fragments\Observations.cs" />
     <Compile Include="Fragments\Visits.cs" />
     <Compile Include="Fragments\Fragment_Visits_Swipe_Menu.cs" />

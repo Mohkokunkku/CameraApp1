@@ -2852,6 +2852,9 @@ namespace CameraApp1
 			// aapt resource value: 0x7f080051
 			public const int start = 2131230801;
 			
+			// aapt resource value: 0x7f0800c6
+			public const int start_delete_mode = 2131230918;
+			
 			// aapt resource value: 0x7f0800aa
 			public const int status_bar_latest_event_content = 2131230890;
 			
