@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,12 +14,15 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 using SQLite;
 
 namespace CameraApp1.Fragments
 {
     public class ChooseProjectFragment : ListFragment //Tämä sisältää defaulttina ListViewin joten ei ole tehty erillistä layout-tiedostoa
     {
+        static HttpClient client = new HttpClient();
+        public bool IsDownloaded = false;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,7 +30,7 @@ namespace CameraApp1.Fragments
             // Create your fragment here
             
         }
-
+        
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             SetHasOptionsMenu(true);
@@ -36,40 +41,42 @@ namespace CameraApp1.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
+            //Toast.MakeText(Android.App.Application.Context, "Lataa projekteja", ToastLength.Long).Show();
 
-            string dbPath = Path.Combine(
-        System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
-        "database.docstarter");
-
-            try
+            if (IsDownloaded == false)
             {
-                SQLiteConnection db = new SQLiteConnection(dbPath);
-                db.CreateTable<Project>();
-                db.CreateTable<MonitoringVisit>();
-                //Näillä voi laittaa kovakoodatut projektit SqlLiteen 
-                //db.InsertAll(LocalDB.AddTestProjects());
-                //db.InsertAll(LocalDB.AddTestMonitorings());
+                string dbPath = Path.Combine(
+    System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+    "database.docstarter");
 
-                var projectTable = db.Table<Project>();
-                List<Project> projects = projectTable.ToList();
-                //muuta lista javalistaksi 
-                JavaList<Project> javaprojects = new JavaList<Project>();
-
-                foreach (var item in projects)
+                try
                 {
-                    javaprojects.Add(item);
+                    SQLiteConnection db = new SQLiteConnection(dbPath);
+                    db.CreateTable<Project>();
+                    db.CreateTable<MonitoringVisit>();
+                    //Näillä voi laittaa kovakoodatut projektit SqlLiteen 
+                    //db.InsertAll(LocalDB.AddTestProjects());
+                    //db.InsertAll(LocalDB.AddTestMonitorings());
+
+                    //var projectTable = db.Table<Project>();
+                    //Tämä pitäisi muuttaa niin, että tekee vain kerran tai jotenkin ettei tee jos on haettu jo aikaisemmin tai olla joku nappula että hae kaikki 
+                    //GetProjects(); //projectTable.ToList();
+                    this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, GetProjects());
+
+                    //muuta lista javalistaksi 
+
+
+
+                    ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.projects_title);
                 }
 
-                this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
-                ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.projects_title);
-            }
 
 
+                catch (global::System.Exception ex)
+                {
 
-            catch (global::System.Exception ex)
-            {
-
-                string error = ex.Message;
+                    string error = ex.Message;
+                } 
             }
         }
 
@@ -78,18 +85,19 @@ namespace CameraApp1.Fragments
         {
             base.OnListItemClick(l, v, position, id);
             //Tämä tavoittaa listasta valitun projektin
-            Project project = (Project)this.ListAdapter.GetItem(position);
-
+            JavaProject project = (JavaProject)this.ListAdapter.GetItem(position);
+            //Project project = new Project() { caseId = }
             //Tämä vaihtaa fragmentin --> on vielä ihan testinä vain kuvanotto fragmentti
             VisitFragmentOn(project);
 
         }
 
-        private void VisitFragmentOn(Project project)
+        private void VisitFragmentOn(JavaProject project)
         {
-            VisitsFragment visits = new VisitsFragment();
+            //VisitsFragment visits = new VisitsFragment();
+            Fragment_Visits_Swipe_Menu visits = new Fragment_Visits_Swipe_Menu();
             Bundle args = new Bundle();
-            args.PutString("case", project.CaseId);
+            args.PutString("case", project.caseId);
             visits.Arguments = args;
             //ois kyllä helppoa käyttää sitä Visits-classia jossa on kaikki käynnit niin ei tarvitsisi passailla listoja tai muuta 
             //vaan seuraava fragmentti voisi hakea suoraan tietokannasta tavarat ilman datan syöttelyä
@@ -100,6 +108,80 @@ namespace CameraApp1.Fragments
             transaction.AddToBackStack(null);
             transaction.Commit();
 
+        }
+
+        public JavaList<JavaProject> GetProjects()
+        {
+
+            try
+            {
+
+
+                //List<Project> projects = new List<Project>();
+                //Uri uri = new Uri(@"https://192.168.137.1:45455/projectsapi/GetProjects");
+                //HttpClient client = new HttpClient();
+                //string downloadaddress = @"http://10.0.2.2:49785/projectsapi/GetProjects";
+                string downloadaddress = @"http://192.168.100.210:47850/projectsapi/GetProjects";
+                // client.DefaultRequestHeaders.Accept.Clear();
+                //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")); //TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+                //HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, downloadaddress);
+                var response = client.GetAsync(downloadaddress).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    //Java.IO.ObjectOutputStream stream = new Java.IO.ObjectOutputStream(new System.IO.Stream(content));
+                    //List<Project> projects = Java.IO.ObjectOutputStream(array);
+                    JavaList<JavaProject> javaprojects = JsonConvert.DeserializeObject<JavaList<JavaProject>>(content);
+                    //JavaList<Project> javaprojects = new JavaList<Project>();
+
+                    //foreach (var item in projects)
+                    //{
+                    //    javaprojects.Add(item);
+                    //}
+
+                    //Tallenna tietokantaan off-line -käyttö varten
+                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
+                    SQLiteConnection db = new SQLiteConnection(dbPath);
+
+                    //foreach (var item in projects)
+                    //{
+
+                    //}
+                    IsDownloaded = true;
+                    
+                    //javaprojects = javaprojects.GroupBy(u => u.name).Select(grp => grp.ToList()).ToJavaList();
+                    return javaprojects;
+                    //this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+                }
+                else
+                {
+                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),"database.docstarter");
+                    SQLiteConnection db = new SQLiteConnection(dbPath);
+                    List<Project> projects = db.Table<Project>().ToList();
+                    JavaList<JavaProject> javalist = new JavaList<JavaProject>(); 
+                    foreach (Project project in projects)
+                    {
+                        JavaProject javaproject = new JavaProject(project.name, project.caseId);
+                    }
+                    return javalist;
+                    //Tämä pitäisi muuttaa niin, että tekee vain kerran tai jotenkin ettei tee jos on haettu jo aikaisemmin tai olla joku nappula että hae kaikki 
+                    //GetProjects(); //projectTable.ToList();
+                }
+
+                // List<Project> projects = JsonConvert.DeserializeObject<List<Project>>($"{httpgetresponse.Content}");
+                //return projects;
+            }
+            catch (HttpRequestException ex)
+            {
+
+                Console.WriteLine(ex.InnerException.Message);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using FFImageLoading;
 
 namespace CameraApp1
 {
@@ -38,6 +39,9 @@ namespace CameraApp1
                     SetContentView(Resource.Layout.activity_main);
                     llMain = FindViewById<RelativeLayout>(Resource.Id.container);
 
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().PermitAll().Build();
+                    StrictMode.SetThreadPolicy(policy);
+                
                 Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 //toolbar.InflateMenu(Resource.Menu.navigation);
                 toolbar.SetTitleTextColor(Android.Graphics.Color.White);
@@ -46,7 +50,7 @@ namespace CameraApp1
                 
                 //ActionBar.Title = "VALITSE PROJEKTI";
                 CheckCameraPermission();
-                
+                FFImageLoadConfigs();
             }
             catch (Exception ex)
             {
@@ -63,7 +67,7 @@ namespace CameraApp1
             Fragments.ChooseProjectFragment mainPageFragment = new Fragments.ChooseProjectFragment();
 
             fragmentTx.Add(Resource.Id.fragment_placeholder, mainPageFragment);
-            fragmentTx.AddToBackStack(null);
+           // fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
         }
 
@@ -93,12 +97,19 @@ namespace CameraApp1
             return base.OnCreateOptionsMenu(menu);
         }
 
+        //public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
+        //{
+        //    ImageService.Instance.InvalidateMemoryCache();
+        //    GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+        //    base.OnTrimMemory(level);
+        //}
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Resource.Id.add_visit)
             {
                 //hakee CaseId:n avatusta Valvontakäynti-fragmentista
-                Fragments.VisitsFragment casefrag = (Fragments.VisitsFragment)FragmentManager.FindFragmentByTag("CaseId");
+                Fragments.Fragment_Visits_Swipe_Menu casefrag = (Fragments.Fragment_Visits_Swipe_Menu)FragmentManager.FindFragmentByTag("CaseId");
                 string caseId = casefrag.caseId;
 
                 Bundle args = new Bundle();
@@ -113,16 +124,32 @@ namespace CameraApp1
                 fragment.Show(FragmentManager, "Formi");
                 
                 
+                
             }
             else if (item.ItemId == Resource.Id.take_photo_menu)
             {
                 Fragments.ObservationFragment observationfrag = (Fragments.ObservationFragment)FragmentManager.FindFragmentByTag("observation");
                 observationfrag.TakePhoto();
             }
+
+            //else if (item.ItemId == Resource.Id.start_delete_mode)
+            //{
+            //    Fragments.ObservationFragment observationfrag = (Fragments.ObservationFragment)FragmentManager.FindFragmentByTag("observation");
+                
+            //}
             //Toast.MakeText(this, $"Action selected: { item.TitleFormatted }", ToastLength.Short).Show();
             
             return base.OnOptionsItemSelected(item);
         }
+
+        public void FFImageLoadConfigs()
+        {
+            string tmpPath = this.CacheDir.AbsolutePath;
+            string cachePath = System.IO.Path.Combine(tmpPath, "docstartercache");
+            var config = new FFImageLoading.Config.Configuration() { VerboseLogging = false, VerbosePerformanceLogging = false, VerboseMemoryCacheLogging = false, VerboseLoadingCancelledLogging = false, HttpClient = new System.Net.Http.HttpClient(new Xamarin.Android.Net.AndroidClientHandler()), DiskCachePath = cachePath, a };
+            FFImageLoading.ImageService.Instance.Initialize(config);
+        }
+
     }
 }
 

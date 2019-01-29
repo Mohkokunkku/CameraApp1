@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraApp1", "CameraApp1\CameraApp1.csproj", "{52381C0D-EAAA-42D6-BAE9-66657B9E0A21}"
+	ProjectSection(ProjectDependencies) = postProject
+		{497A29D3-9BF4-4650-A42F-64B92769F447} = {497A29D3-9BF4-4650-A42F-64B92769F447}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraDataWebApp", "CameraDataWebApp\CameraDataWebApp.csproj", "{497A29D3-9BF4-4650-A42F-64B92769F447}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CameraDataWebApp", "CameraDataWebApp\CameraDataWebApp.csproj", "{497A29D3-9BF4-4650-A42F-64B92769F447}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,20 +2,31 @@
 using System.Collections.Generic;
 using Java.Lang;
 //Tätä voi myöhemmin laajentaa ominaisuuksilla jota DocStarterin projekteissa käytetään jos tarvitsee --> voisi oikeastaan tehdä ihan json-serializoinnilla suoraan kannasta?
+
 public class Project: Java.Lang.Object
 {
-   public string Name { get; set; }
-   public string CaseId { get; set; } //DocStarterin projektiID
-   //string GUID; //uniikki ID varoiksi jos tarvii --> tällä voisi myöhemmin etsiä projektille kuuluvan valvontakäyntilistan
-  // public List<MonitoringVisit> Visits; //lista projektille tehdyistä valvontakäynneistä
+    public string name { get; set; }
 
-    //public Project(string name, string id)
-    //{
-    //    Name = name;
-    //    CaseId = id;
-    //    Guid guid = Guid.NewGuid();
-    //    GUID = $"{guid}";
-    //}
+    public string caseId { get; set; }
+
+}
+
+public class JavaProject: Java.Lang.Object
+{
+    public string name { get; set; }
+
+    public string caseId { get; set; }
+
+    public JavaProject(string name, string caseId)
+    {
+        this.name = name;
+        this.caseId = caseId;
+    }
+}
 
 
+public class Projects: Java.Lang.Object
+{
+    public List<Project> projects { get; set; }
+    
 }

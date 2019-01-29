@@ -29,6 +29,12 @@ namespace CameraApp1.Fragments
 
         //    return base.OnCreateView(inflater, container, savedInstanceState);
         //}
+        //public override void OnDismiss(IDialogInterface dialog)
+        //{
+        //    VisitsFragment.r
+        //    base.OnDismiss(dialog);
+        //}
+
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
         {
             SetHasOptionsMenu(true);
@@ -36,6 +42,7 @@ namespace CameraApp1.Fragments
             AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
 
             builder.SetTitle("Uusi valvontakäynti");
+            //builder.SetOnDismissListener(new OnD)
             EditText text = new EditText(Activity);
             text.Text = $"Viikko { GetWeekNumber() }";
             builder.SetView(text);
@@ -51,7 +58,12 @@ namespace CameraApp1.Fragments
                     MonitoringVisit visit = new MonitoringVisit { name = text.Text, casenumber = caseid, GUID = $"{ Guid.NewGuid()}" };
                     db.CreateTable<MonitoringVisit>();
                     db.Insert(visit);
+
+                    //Päivittää käyntilistan heti kun OK-nappulaa painetaan
+                    Fragments.Fragment_Visits_Swipe_Menu casefrag = (Fragments.Fragment_Visits_Swipe_Menu)FragmentManager.FindFragmentByTag("CaseId");
+                    casefrag.ReFreshView();
                     builder.Dispose();
+                    
                 }
             });
 

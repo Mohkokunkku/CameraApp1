@@ -3,40 +3,46 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using SQLite;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
+using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.App;
-using Android.Support.V7.RecyclerView;
-
+using CameraApp1.Models.ListAdapters;
+using Com.Tubb.Smrv;
+using SQLite;
 
 namespace CameraApp1.Fragments
 {
-    public class VisitsFragment : ListFragment
+    public class Fragment_Visits_Swipe_Menu : Fragment
     {
         public string caseId { get; set; }
+        RecyclerView recyclerView { get; set; }
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetHasOptionsMenu(true);
-            // Create your fragment here
-        }
 
-        public override void OnResume()
-        {
-            ReFreshView();
-            base.OnResume();
+            // Create your fragment here
+            SetHasOptionsMenu(true);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+ 
+
+
+            return inflater.Inflate(Resource.Layout.swipe_menu_visits, container, false);
+
+            //return base.OnCreateView(inflater, container, savedInstanceState);
+        }
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
             if (Arguments != null)
             {
                 string caseid = Arguments.GetString("case");
@@ -60,38 +66,25 @@ namespace CameraApp1.Fragments
                     empty.name = "EI VALVONTAKÄYNTEJÄ";
                     javavisits.Add(empty);
                 }
+                recyclerView = View.FindViewById<SwipeMenuRecyclerView>(Resource.Id.swipe_menu_visits);
+                recyclerView.SetAdapter(new Visits_Swipe_Adapter(this.Activity, javavisits));
+                recyclerView.SetLayoutManager(new LinearLayoutManager(this.Activity));
 
-
-                this.ListAdapter = new Models.VisitsAdapter(Android.App.Application.Context, javavisits);
+                //this.ListAdapter = new Models.VisitsAdapter(Android.App.Application.Context, javavisits);
 
                 ((AppCompatActivity)Activity).SupportActionBar.SetTitle(Resource.String.visits_title);
-             
+
 
             }
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+
+            base.OnViewCreated(view, savedInstanceState);
         }
-        //LISÄÄ TOOLBARIN +-NÄPPÄIMEN UUDEN VALVONTAKÄYNNIN LISÄYSTÄ VARTEN
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             this.Activity.MenuInflater.Inflate(Resource.Menu.project_menu, menu);
             base.OnCreateOptionsMenu(menu, inflater);
-        }
-
-        //AVAA KÄYTTÄJÄLLE VALITUN VALVONTAKÄYNNIN HAVAINTOSISÄLLÖN
-        public override void OnListItemClick(ListView l, View v, int position, long id)
-        {
-            base.OnListItemClick(l, v, position, id);
-            MonitoringVisit visit = (MonitoringVisit)this.ListAdapter.GetItem(position); //ListAdapteriin vois tehdä ihan customfunkkarin palauttamaan guidin?
-            ObservationFragment observations = new ObservationFragment();
-            Bundle args = new Bundle();
-            args.PutString("visitguid", visit.GUID);
-            observations.Arguments = args;
-           
-            FragmentTransaction transaction = this.Activity.FragmentManager.BeginTransaction();
-            transaction.Replace(Resource.Id.fragment_placeholder, observations, "observation");
-            transaction.AddToBackStack(null);
-            transaction.Commit();
         }
 
         public void ReFreshView()
@@ -117,10 +110,22 @@ namespace CameraApp1.Fragments
             }
 
 
-            this.ListAdapter = new Models.VisitsAdapter(Android.App.Application.Context, javavisits);
+            recyclerView.SetAdapter(new Visits_Swipe_Adapter(Activity, javavisits));
         }
 
-        
+        //public void ShowObservations(IMonitoringVisit visit)
+        //{
+        //    base.OnListItemClick(l, v, position, id);
+        //    MonitoringVisit visit = (MonitoringVisit)this.ListAdapter.GetItem(position); //ListAdapteriin vois tehdä ihan customfunkkarin palauttamaan guidin?
+        //    ObservationFragment observations = new ObservationFragment();
+        //    Bundle args = new Bundle();
+        //    args.PutString("visitguid", visit.GUID);
+        //    observations.Arguments = args;
 
-    }   
+        //    FragmentTransaction transaction = this.Activity.FragmentManager.BeginTransaction();
+        //    transaction.Replace(Resource.Id.fragment_placeholder, observations, "observation");
+        //    transaction.AddToBackStack(null);
+        //    transaction.Commit();
+        //}
+    }
 }

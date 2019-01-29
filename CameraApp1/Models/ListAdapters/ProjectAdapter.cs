@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -16,10 +17,10 @@ namespace CameraApp1.Models
     public class ProjectAdapter : BaseAdapter
     {
         private Context context;
-        private JavaList<Project> projects;
+        private JavaList<JavaProject> projects;
         private LayoutInflater inflater;
 
-        public ProjectAdapter(Context context, JavaList<Project> projects)
+        public ProjectAdapter(Context context, JavaList<JavaProject> projects)
         {
             this.context = context;
             this.projects = projects;
@@ -44,17 +45,21 @@ namespace CameraApp1.Models
         //Jos haluaa laittaa dataa näkyviin tietokannasta https://docs.microsoft.com/en-us/xamarin/android/user-interface/layouts/list-view/
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            if (inflater == null)
-            {
-                inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
-            }
-            if (convertView == null)
-            {
-                convertView = inflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
-                convertView.FindViewById<TextView>(Android.Resource.Id.Text1).Text = $"{projects[position].CaseId}, {projects[position].Name}";
-                return convertView;
-            }
+            //if (inflater == null)
+            //{
+            inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
+            //}
+            //if (convertView == null)
+            //{
+            convertView = inflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
+            convertView.FindViewById<TextView>(Android.Resource.Id.Text1).
+                Text = $"{projects[position].name}";
+            convertView.FindViewById<TextView>(Android.Resource.Id.Text1).SetTextColor(Color.Black);
+
+
             return convertView;
+        //}
+          //  return convertView;
            // throw new NotImplementedException();
         }
     }

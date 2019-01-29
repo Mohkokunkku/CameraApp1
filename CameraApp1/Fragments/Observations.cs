@@ -23,6 +23,7 @@ namespace CameraApp1.Fragments
         public string visitguid { get; set; } //Valvontakäynnin GUID talteen 
         public static Java.IO.File _dir;
         public Observation observation { get; set; }
+        public JavaList<Observation> javaobservations { get; set; } = new JavaList<Observation>();
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,7 +44,7 @@ namespace CameraApp1.Fragments
                     db.CreateTable<Observation>();
                     visitguid = Arguments.GetString("visitguid");
                     List<Observation> observations = db.Table<Observation>().Where(s => s.visitguid == visitguid).ToList();
-                    JavaList<Observation> javaobservations = new JavaList<Observation>();
+                    //JavaList<Observation> javaobservations = new JavaList<Observation>();
 
                     if (observations.Count > 0)
                     {
@@ -52,8 +53,8 @@ namespace CameraApp1.Fragments
                             javaobservations.Add(item);
                         }
                     }
-
-                    this.ListAdapter = new Models.ObservationsAdapter(Android.App.Application.Context, javaobservations);
+                    //ListView.Focusable = false;
+                    this.ListAdapter = new Models.ObservationsAdapter(this.Activity, javaobservations);
                 }
 
             }
@@ -76,12 +77,12 @@ namespace CameraApp1.Fragments
         }
 
         //pitäisi avata kuva jotenkin? vai täytyykö olla joku ImageViewclick?
-        public override void OnListItemClick(ListView l, View v, int position, long id)
-        {
-            base.OnListItemClick(l, v, position, id);
+        //public override void OnListItemClick(ListView l, View v, int position, long id)
+        //{
+        //    base.OnListItemClick(l, v, position, id);
+        //   // if (v.GetType == ImageView);
 
-
-        }
+        //}
 
         //KUVANOTTO SKRIPTIT --> KOPIOITU VANHASTA ObservationPage-fragmentistä jolle ei välttämättä ole enää käyttöä projektissa
 
@@ -97,14 +98,14 @@ namespace CameraApp1.Fragments
                     Java.IO.File _file = new Java.IO.File(_dir, string.Format("Image_{0}.jpg", Guid.NewGuid()));
                     // Android.Net.Uri photouri = FileProvider.GetUriForFile(context, )
                     //Uri photoURI = Uri.FromFile(_file);
-
+                    
                     Android.Net.Uri photoUri = FileProvider.GetUriForFile(Android.App.Application.Context, "com.mydomain.fileprovider", _file);
                     intent.PutExtra(MediaStore.ExtraOutput, photoUri);
                     //CreateNewObservation(photoUri);
                    
                     intent.AddFlags(ActivityFlags.GrantReadUriPermission);
                     
-                    CreateNewObservation(photoUri);
+                    CreateNewObservation(photoUri, _file.AbsolutePath);
 
                     StartActivityForResult(intent, 0);
                 }
@@ -146,13 +147,14 @@ namespace CameraApp1.Fragments
             }
         }
 
-        public void CreateNewObservation(Android.Net.Uri uri)
+        public void CreateNewObservation(Android.Net.Uri uri, string absolutePath)
         {
-            observation = new Observation() {imageuri = $"{uri}", visitguid = $"{visitguid}", observationguid = $"{ Guid.NewGuid() }"  };
+            
+            observation = new Observation() {absolutepath = absolutePath, imageuri = $"{uri}", visitguid = $"{visitguid}", observationguid = $"{ Guid.NewGuid() }"  };
 
         }
 
-        private void RefreshView()
+        public void RefreshView()
         {
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
             SQLiteConnection db = new SQLiteConnection(dbPath);
@@ -167,7 +169,7 @@ namespace CameraApp1.Fragments
                 }
             }
 
-            this.ListAdapter = new Models.ObservationsAdapter(Android.App.Application.Context, javaobservations);
+            this.ListAdapter = new Models.ObservationsAdapter(this.Activity, javaobservations);
         }
     }
 }
