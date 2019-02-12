@@ -81,8 +81,10 @@
     <Compile Include="Models\ListAdapters\ProjectAdapter.cs" />
     <Compile Include="Models\project_observations.cs" />
     <Compile Include="Models\ListAdapters\VisitsAdapter.cs" />
+    <Compile Include="Models\VisitSender.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
     <Compile Include="VieModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\ids.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splashscreen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

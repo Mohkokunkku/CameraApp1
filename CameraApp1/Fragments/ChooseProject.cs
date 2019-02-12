@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -21,7 +22,7 @@ namespace CameraApp1.Fragments
 {
     public class ChooseProjectFragment : ListFragment //Tämä sisältää defaulttina ListViewin joten ei ole tehty erillistä layout-tiedostoa
     {
-        static HttpClient client = new HttpClient();
+        public HttpClient client = new HttpClient();
         public bool IsDownloaded = false;
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -61,8 +62,20 @@ namespace CameraApp1.Fragments
                     //var projectTable = db.Table<Project>();
                     //Tämä pitäisi muuttaa niin, että tekee vain kerran tai jotenkin ettei tee jos on haettu jo aikaisemmin tai olla joku nappula että hae kaikki 
                     //GetProjects(); //projectTable.ToList();
-                    this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, GetProjects());
+                    var projectlist = db.Table<Project>().ToList();
 
+                    JavaList<JavaProject> javalist = new JavaList<JavaProject>();
+                    if (projectlist != null && projectlist.Count > 0)
+                    {
+                        foreach (var project in projectlist)
+                        {
+                            javalist.Add(new JavaProject(project.name, project.caseId)); 
+
+                        }
+                        this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javalist);
+                    }
+                    var uiContext = TaskScheduler.FromCurrentSynchronizationContext();
+                    Task.Factory.StartNew(() => UpdateProjects(), CancellationToken.None, TaskCreationOptions.None, uiContext);
                     //muuta lista javalistaksi 
 
 
@@ -81,6 +94,7 @@ namespace CameraApp1.Fragments
         }
 
 
+
         public override void OnListItemClick(ListView l, View v, int position, long id)
         {
             base.OnListItemClick(l, v, position, id);
@@ -97,6 +111,7 @@ namespace CameraApp1.Fragments
             //VisitsFragment visits = new VisitsFragment();
             Fragment_Visits_Swipe_Menu visits = new Fragment_Visits_Swipe_Menu();
             Bundle args = new Bundle();
+            args.PutString("casename", project.name);
             args.PutString("case", project.caseId);
             visits.Arguments = args;
             //ois kyllä helppoa käyttää sitä Visits-classia jossa on kaikki käynnit niin ei tarvitsisi passailla listoja tai muuta 
@@ -110,13 +125,13 @@ namespace CameraApp1.Fragments
 
         }
 
-        public JavaList<JavaProject> GetProjects()
+        public void UpdateProjects()
         {
 
             try
             {
 
-
+                Toast.MakeText(Android.App.Application.Context, "Tarkistetaan uusia projekteja serveriltä...", ToastLength.Long).Show();
                 //List<Project> projects = new List<Project>();
                 //Uri uri = new Uri(@"https://192.168.137.1:45455/projectsapi/GetProjects");
                 //HttpClient client = new HttpClient();
@@ -133,16 +148,29 @@ namespace CameraApp1.Fragments
                     //List<Project> projects = Java.IO.ObjectOutputStream(array);
                     JavaList<JavaProject> javaprojects = JsonConvert.DeserializeObject<JavaList<JavaProject>>(content);
                     //JavaList<Project> javaprojects = new JavaList<Project>();
-
-                    //foreach (var item in projects)
-                    //{
-                    //    javaprojects.Add(item);
-                    //}
+                    List<Project> onlineList = new List<Project>();
+                    foreach (var javaproj in javaprojects)
+                    {
+                        Project project = new Project { caseId = javaproj.caseId, name = javaproj.name };
+                        onlineList.Add(project);
+                    }
 
                     //Tallenna tietokantaan off-line -käyttö varten
                     string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
                     SQLiteConnection db = new SQLiteConnection(dbPath);
-
+                    List<Project> dblist = db.Table<Project>().ToList();
+                    if (onlineList.Count == dblist.Count)
+                    {
+                        Toast.MakeText(Android.App.Application.Context, "Palvelimella ei ollut muutoksia...", ToastLength.Long).Show();
+                        //jos onlinelista ja dblista on samoja niin ei ole tarvetta muutoksiin
+                        //return;
+                    }
+                    else
+                    {
+                        this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
+                        LocalDB.UpdateProjects(onlineList);
+                        Toast.MakeText(Android.App.Application.Context, "Projektilista päivitetty palvelimelta...", ToastLength.Long).Show();
+                    }
                     //foreach (var item in projects)
                     //{
 
@@ -150,7 +178,7 @@ namespace CameraApp1.Fragments
                     IsDownloaded = true;
                     
                     //javaprojects = javaprojects.GroupBy(u => u.name).Select(grp => grp.ToList()).ToJavaList();
-                    return javaprojects;
+                    //return javaprojects;
                     //this.ListAdapter = new Models.ProjectAdapter(Android.App.Application.Context, javaprojects);
                 }
                 else
@@ -163,7 +191,7 @@ namespace CameraApp1.Fragments
                     {
                         JavaProject javaproject = new JavaProject(project.name, project.caseId);
                     }
-                    return javalist;
+                    //return javalist;
                     //Tämä pitäisi muuttaa niin, että tekee vain kerran tai jotenkin ettei tee jos on haettu jo aikaisemmin tai olla joku nappula että hae kaikki 
                     //GetProjects(); //projectTable.ToList();
                 }

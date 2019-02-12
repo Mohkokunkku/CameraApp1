@@ -57,7 +57,7 @@ namespace CameraApp1.Fragments
                 else
                 {
                     MonitoringVisit empty = new MonitoringVisit();
-                    empty.name = "EI VALVONTAKÄYNTEJÄ";
+                    empty.visitname = "EI VALVONTAKÄYNTEJÄ";
                     javavisits.Add(empty);
                 }
 
@@ -85,7 +85,7 @@ namespace CameraApp1.Fragments
             MonitoringVisit visit = (MonitoringVisit)this.ListAdapter.GetItem(position); //ListAdapteriin vois tehdä ihan customfunkkarin palauttamaan guidin?
             ObservationFragment observations = new ObservationFragment();
             Bundle args = new Bundle();
-            args.PutString("visitguid", visit.GUID);
+            args.PutString("visitguid", visit.visitguid);
             observations.Arguments = args;
            
             FragmentTransaction transaction = this.Activity.FragmentManager.BeginTransaction();
@@ -112,7 +112,7 @@ namespace CameraApp1.Fragments
             else
             {
                 MonitoringVisit empty = new MonitoringVisit();
-                empty.name = "EI VALVONTAKÄYNTEJÄ";
+                empty.visitname = "EI VALVONTAKÄYNTEJÄ";
                 javavisits.Add(empty);
             }
 

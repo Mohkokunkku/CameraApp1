@@ -2248,26 +2248,26 @@ namespace CameraApp1
 			// aapt resource value: 0x7f020055
 			public const int avd_hide_password = 2130837589;
 			
-			// aapt resource value: 0x7f020073
-			public const int avd_hide_password_1 = 2130837619;
-			
 			// aapt resource value: 0x7f020074
-			public const int avd_hide_password_2 = 2130837620;
+			public const int avd_hide_password_1 = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int avd_hide_password_3 = 2130837621;
+			public const int avd_hide_password_2 = 2130837621;
+			
+			// aapt resource value: 0x7f020076
+			public const int avd_hide_password_3 = 2130837622;
 			
 			// aapt resource value: 0x7f020056
 			public const int avd_show_password = 2130837590;
 			
-			// aapt resource value: 0x7f020076
-			public const int avd_show_password_1 = 2130837622;
-			
 			// aapt resource value: 0x7f020077
-			public const int avd_show_password_2 = 2130837623;
+			public const int avd_show_password_1 = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int avd_show_password_3 = 2130837624;
+			public const int avd_show_password_2 = 2130837624;
+			
+			// aapt resource value: 0x7f020079
+			public const int avd_show_password_3 = 2130837625;
 			
 			// aapt resource value: 0x7f020057
 			public const int design_bottom_navigation_item_background = 2130837591;
@@ -2326,11 +2326,11 @@ namespace CameraApp1
 			// aapt resource value: 0x7f020069
 			public const int notification_icon_background = 2130837609;
 			
-			// aapt resource value: 0x7f020071
-			public const int notification_template_icon_bg = 2130837617;
-			
 			// aapt resource value: 0x7f020072
-			public const int notification_template_icon_low_bg = 2130837618;
+			public const int notification_template_icon_bg = 2130837618;
+			
+			// aapt resource value: 0x7f020073
+			public const int notification_template_icon_low_bg = 2130837619;
 			
 			// aapt resource value: 0x7f02006a
 			public const int notification_tile_bg = 2130837610;
@@ -2345,13 +2345,16 @@ namespace CameraApp1
 			public const int rubbish_bin = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int tooltip_frame_dark = 2130837614;
+			public const int splashscreen = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int tooltip_frame_light = 2130837615;
+			public const int tooltip_frame_dark = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int upload_to_the_cloud = 2130837616;
+			public const int tooltip_frame_light = 2130837616;
+			
+			// aapt resource value: 0x7f020071
+			public const int upload_to_the_cloud = 2130837617;
 			
 			static Drawable()
 			{
@@ -2851,9 +2854,6 @@ namespace CameraApp1
 			
 			// aapt resource value: 0x7f080051
 			public const int start = 2131230801;
-			
-			// aapt resource value: 0x7f0800c6
-			public const int start_delete_mode = 2131230918;
 			
 			// aapt resource value: 0x7f0800aa
 			public const int status_bar_latest_event_content = 2131230890;
@@ -4597,6 +4597,9 @@ namespace CameraApp1
 			
 			// aapt resource value: 0x7f0b0178
 			public const int Widget_Design_TextInputLayout = 2131427704;
+			
+			// aapt resource value: 0x7f0b0181
+			public const int splashscreen = 2131427713;
 			
 			static Style()
 			{

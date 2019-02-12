@@ -37,13 +37,38 @@ public static class LocalDB
         db.InsertOrReplace(observation);
     }
 
+    public static void UpdateProjects(List<Project> onlineprojects)
+    {
+        //Pitäiskö nyt alkuun tehdä vaan niin että droppais koko tablen jos projektilista on päivittynyt ja loisi sen uusiksi?
+
+        try
+        {
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
+            SQLiteConnection db = new SQLiteConnection(dbPath);
+            db.DropTable<Project>();
+
+            db.CreateTable<Project>();
+
+            foreach (var onlineproject in onlineprojects)
+            {
+                db.InsertOrReplace(onlineproject); 
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Virhe sqliten päivittämisessä" + ex.Message);
+            throw;
+        }
+
+    }
+
     public static void DeleteVisit(IMonitoringVisit visit)
     {
 
         try
         {
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
-            var visitguid = visit.GUID;
+            var visitguid = visit.visitguid;
             SQLiteConnection db = new SQLiteConnection(dbPath);
             db.CreateTable<MonitoringVisit>();
 
@@ -108,15 +133,15 @@ public static class LocalDB
     public static List<MonitoringVisit> AddTestMonitorings()
     {
         MonitoringVisit visit1 = new MonitoringVisit();
-        visit1.name = "Viikko 11";
+        visit1.visitname = "Viikko 11";
         visit1.casenumber = "345";
 
         MonitoringVisit visit2 = new MonitoringVisit();
-        visit2.name = "Viikko 12";
+        visit2.visitname = "Viikko 12";
         visit2.casenumber = "345";
 
         MonitoringVisit visit3 = new MonitoringVisit();
-        visit3.name = "Viikko 13";
+        visit3.visitname = "Viikko 13";
         visit3.casenumber = "345";
 
         return new List<MonitoringVisit>()

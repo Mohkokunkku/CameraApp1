@@ -38,7 +38,7 @@ namespace CameraApp1.Models
             if (convertView == null)
             {
                 convertView = inflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
-                convertView.FindViewById<TextView>(Android.Resource.Id.Text1).Text = $" {visits[position].name}";
+                convertView.FindViewById<TextView>(Android.Resource.Id.Text1).Text = $" {visits[position].visitname}";
 
             }
             return convertView;

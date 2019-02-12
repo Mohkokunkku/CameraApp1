@@ -20,6 +20,8 @@ namespace CameraApp1.Fragments
 {
     public class ObservationFragment : ListFragment
     {
+        public string casename { get; set; }
+        public string visitname { get; set; }
         public string visitguid { get; set; } //Valvontakäynnin GUID talteen 
         public static Java.IO.File _dir;
         public Observation observation { get; set; }
@@ -42,7 +44,9 @@ namespace CameraApp1.Fragments
                     string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
                     SQLiteConnection db = new SQLiteConnection(dbPath);
                     db.CreateTable<Observation>();
+                    casename = Arguments.GetString("casename");
                     visitguid = Arguments.GetString("visitguid");
+                    visitname = Arguments.GetString("visitname");
                     List<Observation> observations = db.Table<Observation>().Where(s => s.visitguid == visitguid).ToList();
                     //JavaList<Observation> javaobservations = new JavaList<Observation>();
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,6 +14,7 @@ using Android.Views;
 using Android.Widget;
 using CameraApp1.Fragments;
 using Com.Tubb.Smrv;
+using SQLite;
 
 namespace CameraApp1.Models.ListAdapters
 {
@@ -32,7 +35,7 @@ namespace CameraApp1.Models.ListAdapters
         {
             MonitoringVisit visit = (MonitoringVisit)_visits.Get(position);
             var vh = (Visits_Swipe_AdapterViewHolder)holder;
-            vh._itemName.Text = visit.name;
+            vh._itemName.Text = visit.visitname;
             vh.Sml.SwipeEnable = true;
             
             // You can set click listners to indvidual items in the viewholder here
@@ -43,11 +46,23 @@ namespace CameraApp1.Models.ListAdapters
 
         public void OnClick(View itemView, int position, bool isLongClick)
         {
+            //SWITCH KÄSITTELEE MITÄ KOHTAA KÄYTTÄJÄ KLIKKAA RECYCLERVIEWISSÄ
             int id = itemView.Id;
             switch (id)
             {
                 case Resource.Id.send_to_server_button:
                     Console.WriteLine("Serverille lähetys alkaa");
+                    //täytyy hakea puhelimen tietokannasta observationit tässä vaiheessa
+                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
+                    SQLiteConnection db = new SQLiteConnection(dbPath);
+                    var visit1 = (MonitoringVisit)_visits.Get(position);
+                    List<Observation> observationsToServer = db.Table<Observation>().Where(s => s.visitguid == visit1.visitguid).ToList();
+                    var observsender = new ObservationSender(observationsToServer, visit1);
+                    var uiContext = TaskScheduler.FromCurrentSynchronizationContext();
+                    //Task.Run(() => observsender.SendVisit()).c;
+                    Task.Factory.StartNew(() => observsender.SendVisit(), CancellationToken.None, TaskCreationOptions.None, uiContext);
+                    Toast.MakeText(Android.App.Application.Context, "Sending data to server...", ToastLength.Long).Show();
+                    
                     break;
                 case Resource.Id.right_menu_delete_item:
                     MonitoringVisit removevisit = (MonitoringVisit)_visits.Get(position);
@@ -57,7 +72,8 @@ namespace CameraApp1.Models.ListAdapters
                 case Resource.Id.visit_content:
                     MonitoringVisit visit = (MonitoringVisit)_visits.Get(position);
                     Bundle args = new Bundle();
-                    args.PutString("visitguid", visit.GUID);
+                    args.PutString("visitguid", visit.visitguid);
+                    args.PutString("visitname", visit.visitname);
                     ObservationFragment observations = new ObservationFragment();
                     observations.Arguments = args;
                     FragmentTransaction transaction = _context.FragmentManager.BeginTransaction();

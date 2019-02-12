@@ -76,9 +76,9 @@ namespace CameraApp1.Models
                     ImageService.Instance.                       
                         //LoadingPlaceholder($"/android.resource://CameraApp1.CameraApp1/{Resource.Drawable.loading}").
                         LoadFile(@observation.absolutepath).
-                        LoadingPlaceholder(loadingimgpath).
+                        WithCache(FFImageLoading.Cache.CacheType.Memory).
                         Retry(3, 200).
-                        DownSample(width:110).
+                        DownSample(width:90).
                         Into(image);
                     //image.SetImageURI(uri);
                     

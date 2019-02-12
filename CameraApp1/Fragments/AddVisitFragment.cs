@@ -55,7 +55,7 @@ namespace CameraApp1.Fragments
                    
                     string caseid = Arguments.GetString("case");
                     //laittaa uuden visitin SQLiteen
-                    MonitoringVisit visit = new MonitoringVisit { name = text.Text, casenumber = caseid, GUID = $"{ Guid.NewGuid()}" };
+                    MonitoringVisit visit = new MonitoringVisit { visitname = text.Text, casenumber = caseid, visitguid = $"{ Guid.NewGuid()}", casename = Arguments.GetString("casename") };
                     db.CreateTable<MonitoringVisit>();
                     db.Insert(visit);
 

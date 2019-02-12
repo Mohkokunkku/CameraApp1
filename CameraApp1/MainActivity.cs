@@ -18,7 +18,7 @@ using FFImageLoading;
 
 namespace CameraApp1
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/MyTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/MyTheme", MainLauncher = false)]
     public class MainActivity : AppCompatActivity
     {  //CompatAppActivity
        // TextView textMessage;
@@ -114,7 +114,7 @@ namespace CameraApp1
 
                 Bundle args = new Bundle();
                 args.PutString("case", caseId);
-                
+                args.PutString("casename", casefrag.casename);
                 Android.App.FragmentTransaction transaction = this.FragmentManager.BeginTransaction();
                 Android.App.DialogFragment fragment = new Fragments.NewVisitFragment();
                 fragment.Arguments = args;
@@ -146,7 +146,7 @@ namespace CameraApp1
         {
             string tmpPath = this.CacheDir.AbsolutePath;
             string cachePath = System.IO.Path.Combine(tmpPath, "docstartercache");
-            var config = new FFImageLoading.Config.Configuration() { VerboseLogging = false, VerbosePerformanceLogging = false, VerboseMemoryCacheLogging = false, VerboseLoadingCancelledLogging = false, HttpClient = new System.Net.Http.HttpClient(new Xamarin.Android.Net.AndroidClientHandler()), DiskCachePath = cachePath, a };
+            var config = new FFImageLoading.Config.Configuration() { VerboseLogging = false, VerbosePerformanceLogging = false, VerboseMemoryCacheLogging = false, VerboseLoadingCancelledLogging = false, HttpClient = new System.Net.Http.HttpClient(new Xamarin.Android.Net.AndroidClientHandler()), DiskCachePath = cachePath };
             FFImageLoading.ImageService.Instance.Initialize(config);
         }
 

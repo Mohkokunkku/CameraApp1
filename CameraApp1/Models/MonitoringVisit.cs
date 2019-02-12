@@ -22,20 +22,21 @@ public class MonitoringVisit : Java.Lang.Object, IMonitoringVisit
 {
    // public List<Observation> observations = new List<Observation>();
   
-    public string GUID { get; set; }
+    public string visitguid { get; set; }
     //private int number;
     public string casenumber { get; set; }
+    public string casename { get; set; }
     //private string projectGUID;
-    public string name { get; set; }
+    public string visitname { get; set; }
     [PrimaryKey, AutoIncrement]
     public int pkId { get; set; }
+}
 
-    //private MonitoringVisit(string name, string casenumber)//, string projectGUID)
-    //{
-    //    //this.projectGUID = projectGUID;
-    //    //this.name = name; //tää voi olla esim "Viikko 11" jne tai sitten jotakin vapaasti valittavaa
-    //    //Guid guid = Guid.NewGuid();
-    //    //GUID = $"{guid}";
-    //    //this.casenumber = casenumber; //tätä ei välttämättä tarvi jos käyttää projectin guidia yhdistämiseen
-    //}
+public class SendMonitoringVisit : IMonitoringVisit
+{
+    public string casenumber { get; set; }
+    public string visitguid { get; set; }
+    public string visitname { get; set; }
+    public int pkId { get; set; }
+    public string casename { get; set; }
 }

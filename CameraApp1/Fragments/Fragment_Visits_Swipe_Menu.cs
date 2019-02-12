@@ -22,6 +22,7 @@ namespace CameraApp1.Fragments
     public class Fragment_Visits_Swipe_Menu : Fragment
     {
         public string caseId { get; set; }
+        public string casename { get; set; }
         RecyclerView recyclerView { get; set; }
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -47,6 +48,7 @@ namespace CameraApp1.Fragments
             {
                 string caseid = Arguments.GetString("case");
                 caseId = caseid;
+                casename = Arguments.GetString("casename");
                 string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "database.docstarter");
 
                 SQLiteConnection db = new SQLiteConnection(dbPath);
@@ -63,7 +65,7 @@ namespace CameraApp1.Fragments
                 else
                 {
                     MonitoringVisit empty = new MonitoringVisit();
-                    empty.name = "EI VALVONTAKÄYNTEJÄ";
+                    empty.visitname = "EI VALVONTAKÄYNTEJÄ";
                     javavisits.Add(empty);
                 }
                 recyclerView = View.FindViewById<SwipeMenuRecyclerView>(Resource.Id.swipe_menu_visits);
@@ -105,7 +107,7 @@ namespace CameraApp1.Fragments
             else
             {
                 MonitoringVisit empty = new MonitoringVisit();
-                empty.name = "EI VALVONTAKÄYNTEJÄ";
+                empty.visitname = "EI VALVONTAKÄYNTEJÄ";
                 javavisits.Add(empty);
             }
 
