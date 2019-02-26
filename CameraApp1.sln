@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraApp1", "CameraApp1\Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CameraDataWebApp", "CameraDataWebApp\CameraDataWebApp.csproj", "{497A29D3-9BF4-4650-A42F-64B92769F447}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wordTest", "wordTest\wordTest.csproj", "{03908650-86F0-4CEB-BB96-081573EA1ACA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{497A29D3-9BF4-4650-A42F-64B92769F447}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{497A29D3-9BF4-4650-A42F-64B92769F447}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{497A29D3-9BF4-4650-A42F-64B92769F447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03908650-86F0-4CEB-BB96-081573EA1ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03908650-86F0-4CEB-BB96-081573EA1ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03908650-86F0-4CEB-BB96-081573EA1ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03908650-86F0-4CEB-BB96-081573EA1ACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

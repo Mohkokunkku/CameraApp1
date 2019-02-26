@@ -23,7 +23,10 @@ namespace CameraDataWebApp.Controllers
         [HttpGet]
         public IEnumerable<MonitoringVisit> GetMonitoringVisits()
         {
-            return _context.MonitoringVisits;
+            //JOS KÄYNTEJÄ TULEE PALJON NIIN TÄHÄN VOISI RAKENTAA JONKIN FILTTERIN TAI AINANKIN FILTERÖIDÄ POIS KUVATTOMAN KÄYNNIT?
+            var result = _context.MonitoringVisits.Where(x => x.observations.Any() && x.observations.Count > 0).Include(x => x.observations).ToList();
+
+            return _context.MonitoringVisits.Where(x => x.observations.Any() && x.observations.Count > 0).Include(x => x.observations).ToList();
         }
 
         // GET: api/MonitoringVisits/5
@@ -44,6 +47,8 @@ namespace CameraDataWebApp.Controllers
 
             return Ok(monitoringVisit);
         }
+
+        
 
         // PUT: api/MonitoringVisits/5
         [HttpPut("{id}")]

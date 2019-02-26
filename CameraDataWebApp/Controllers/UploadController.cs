@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CameraDataWebApp.Services;
+using CameraDataWebApp.WordProcessing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace CameraDataWebApp.Controllers
 {
@@ -47,12 +48,12 @@ namespace CameraDataWebApp.Controllers
                 {
                     //filePath = $"{filePath}{imagedatafolder}{formFile.FileName}";
                     //OTTAA FORM-FILESTA TIEDOSTONIMEN
-                    var FileName = Path.GetFileName(formFile.FileName); 
+                    var FileName = Path.GetFileName(formFile.FileName);
                     if (formFile.Length > 0)
                     {
                         using (var stream = new FileStream($"{filePath}{imagedatafolder}{FileName}", FileMode.Create))
                         {
-                            
+
                             await formFile.CopyToAsync(stream);
                             var entity = _context.Observations.FirstOrDefault(item => item.imageuri == formFile.FileName);
                             if (entity != null)
@@ -77,6 +78,40 @@ namespace CameraDataWebApp.Controllers
             //}
             return Ok(new { count = items.Count(), size, filePath });
         }
+
+        [HttpGet()]
+        [Route("GetImageFile/{id}")]
+        public async Task<IActionResult> GetImageFile([FromRoute] int id)
+        {
+            Observation observation = await _context.Observations.Where(x => x.Id == id).FirstOrDefaultAsync();
+            if (System.IO.File.Exists(observation.imageuri))
+            {
+                return new PhysicalFileResult(observation.imageuri, "image/jpeg");
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpGet()]
+        [Route("GetVisitDocument/{id}")]
+        public async Task<IActionResult> GetVisitDocument([FromRoute] int id)
+        {
+            MonitoringVisit monitoringVisit = await _context.MonitoringVisits.Where(x => x.Id == id).Include(x => x.observations).FirstOrDefaultAsync();
+            MonitoringVisitDocument monitoringVisitDocument = new MonitoringVisitDocument(monitoringVisit);
+            string docxFile = monitoringVisitDocument.GetMonitoringVisitDocument();
+            if (System.IO.File.Exists(docxFile))
+            {
+                return new PhysicalFileResult(docxFile, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+
 
         [HttpGet]
         [Route("GetObservations")]

@@ -10,5 +10,6 @@ namespace CameraDataWebApp.Services
     {
         Observation AddPhotos(Observation items);
         Dictionary<string, Observation> GetObservations();
+
     }
 }
